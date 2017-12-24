@@ -3,6 +3,12 @@
 The code for the 2017 Winter Break Assignment of CVWO
 (Computing for Voluntary Welfare Organisations)
 
+## Notes on Permission
+I develop on Windows Subsystem for Linux (WSL), so expect some funky permission
+(like 777 funky). Fix this using the `rails-fix-permissions` gem
+1. `gem install rails-fix-permissions`
+2. `rails-fix-permissions`
+
 <!--
 This README would normally document whatever steps are necessary to get the
 application up and running.
