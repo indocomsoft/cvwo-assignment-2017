@@ -3,6 +3,9 @@
 The code for the 2017 Winter Break Assignment of CVWO
 (Computing for Voluntary Welfare Organisations)
 
+## Schema Diagram
+![](schema.png)
+
 ## Notes on Permission
 I develop on Windows Subsystem for Linux (WSL), so expect some funky permission
 (like 777 funky). Fix this using the `rails-fix-permissions` gem
