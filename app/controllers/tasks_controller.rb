@@ -3,6 +3,7 @@
 class TasksController < ApplicationController
   helper_method :sortable
 
+  # Helper to generate table header in view
   def sortable(column, title = nil)
     title ||= column.titleize
     title += (column == sort_column ? "<i class=\"fa fa-sort-#{sort_direction}\"></i>" : "")
@@ -20,7 +21,6 @@ class TasksController < ApplicationController
 
   def create
     task = Task.new task_params
-    # task.due_date = Date.strptime(params[:task][:due_date], "%d/%m/%Y")
     if task.save
       redirect_to tasks_path
     else
@@ -61,14 +61,17 @@ class TasksController < ApplicationController
 
   private
 
+  # Sanitise parameter
   def task_params
     params.require(:task).permit(:name, :description, :priority, :done, :due_date)
   end
 
+  # Extract the column to sort by. Else, priority is the default column sorting mode
   def sort_column
     Task.column_names.include?(params[:sort])? params[:sort] : "priority"
   end
 
+  # Extract the direction to sort by. Else, ascending is the default direction
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
