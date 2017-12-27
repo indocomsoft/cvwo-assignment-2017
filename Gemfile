@@ -64,3 +64,5 @@ gem 'jquery-rails'
 
 # Font Awesome
 gem 'font-awesome-sass'
+
+ruby "2.4.1"
