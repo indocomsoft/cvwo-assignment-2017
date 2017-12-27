@@ -2,9 +2,10 @@
 <%= link_to '<i class="fa fa-chevron-left" aria-hidden="true"></i> Back to tasks list'.html_safe, tasks_path %>
 <% if flash[:error] %>
   <div class="alert alert-danger" role="alert">
-    <%= flash[:error] %>
+    Error: <%= flash[:error] %>
   </div>
 <% end %>
+
 <%= form_for @task, html: { id: "needs-validation", novalidate: "novalidate" } do |t| %>
   <div class="form-row">
     <div class="col-md">
