@@ -1,0 +1,30 @@
+<%= render "header" %>
+  <%= link_to "Create new task", new_task_path %>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Actions</th>
+        <th scope="col"><%= sortable "priority", "#" %></th>
+        <th scope="col"><%= sortable "name" %></th>
+        <th scope="col"><%= sortable "description" %></th>
+        <th scope="col"><%= sortable "due_date" %></th>
+        <th scope="col"><%= sortable "done" %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |t| %>
+      <tr>
+        <th scope="row">
+          <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_task_path(t), { class: 'btn btn-primary' } %> 
+          <%= link_to '<i class="fa fa-trash"></i>'.html_safe, task_path(t), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+        </th>
+        <td><%= t.priority %></td>
+        <td><%= t.name %></td>
+        <td><%= t.description %></td>
+        <td><%= t.due_date.strftime("%d/%m/%Y") if t.due_date %></td>
+        <td><%= check_box_tag '', '', t.done, disabled: true %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<%= render "footer" %>

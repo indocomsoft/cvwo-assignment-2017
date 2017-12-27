@@ -15,5 +15,5 @@
 
 class Task < ApplicationRecord
   has_and_belongs_to_many :categories
-  validates :priority, numericality: { only_integer: true, greater_than: 0, less_than: 11 }
+  validates :priority, numericality: { only_integer: true, greater_than: 0, less_than: 11, message: "must be between 1 and 10 inclusive." }
 end
