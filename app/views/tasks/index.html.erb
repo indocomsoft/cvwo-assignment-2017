@@ -16,8 +16,7 @@
     <tr>
       <th scope="col"></th>
       <th scope="col"><%= sortable "priority", "#" %></th>
-      <th scope="col"><%= sortable "name" %></th>
-      <th scope="col"><%= sortable "description" %></th>
+      <th scope="col"><%= sortable "name", "Name/Description" %></th>
       <th scope="col"><%= sortable "due_date" %></th>
       <th scope="col"><%= sortable "done" %></th>
     </tr>
@@ -30,8 +29,10 @@
         <%= link_to '<i class="fa fa-trash"></i>'.html_safe, task_path(t), method: :delete, data: { confirm: 'Are you sure?', toggle: 'tooltip', placement: 'bottom'}, title: 'Delete Task', class: 'btn btn-danger' %>
       </th>
       <td><%= t.priority %></td>
-      <td><%= t.name %></td>
-      <td><%= t.description %></td>
+      <td>
+        <h4 class="name"><strong><%= t.name %></strong></h4>
+        <p class="description"><%= t.description %></p>
+      </td>
       <td><%= t.due_date.strftime("%d/%m/%Y") if t.due_date %></td>
       <td><%= check_box_tag "done-#{t.id}", "done-#{t.id}", t.done,  onclick: "update(#{t.id})" %></td>
     </tr>

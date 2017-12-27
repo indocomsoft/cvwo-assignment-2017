@@ -13,7 +13,7 @@
 .alerts {
   position: fixed; 
   top: 0px; 
-  width: 40%;
+  width: 50%;
   left: 0;
   right: 0;
   margin: auto;
@@ -21,5 +21,13 @@
 }
 
 .inner {
-  margin: 0;
+  margin: 5px;
+}
+
+.name {
+  text-align: left;
+}
+
+.description {
+  text-align: left;
 }
