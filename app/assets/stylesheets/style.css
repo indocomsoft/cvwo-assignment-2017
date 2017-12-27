@@ -1,0 +1,25 @@
+.table td, .table th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.table > thead > tr > th > a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.fa { display:inline; }
+
+.alerts {
+  position: fixed; 
+  top: 0px; 
+  width: 40%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 9999;
+}
+
+.inner {
+  margin: 0;
+}

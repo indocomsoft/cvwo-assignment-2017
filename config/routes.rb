@@ -3,5 +3,9 @@
 Rails.application.routes.draw do
   root 'tasks#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :tasks
+  resources :tasks do
+    member do
+      post 'done'
+    end
+  end
 end

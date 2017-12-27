@@ -48,6 +48,17 @@ class TasksController < ApplicationController
     redirect_to tasks_path if task.destroy
   end
 
+  def done
+    task = Task.find params[:id]
+    task.done = params[:value]
+    if task.save
+      status = true
+    else
+      status = false
+    end
+    render json: { success: status, name: task.name, value: params[:value] }
+  end
+
   private
 
   def task_params
