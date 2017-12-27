@@ -16,7 +16,7 @@
       <tr>
         <th scope="row">
           <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_task_path(t), { class: 'btn btn-primary' } %> 
-          <%= link_to '<i class="fa fa-trash"></i>'.html_safe, task_path(t), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+          <%= link_to '<i class="fa fa-trash"></i>'.html_safe, task_path(t), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
         </th>
         <td><%= t.priority %></td>
         <td><%= t.name %></td>
