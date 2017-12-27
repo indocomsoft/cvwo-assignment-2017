@@ -58,5 +58,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Bootstrap
 gem 'bootstrap'
+gem 'bootstrap-datepicker-rails'
 gem 'autoprefixer-rails'
 gem 'jquery-rails'
+
+# Font Awesome
+gem 'font-awesome-sass'
