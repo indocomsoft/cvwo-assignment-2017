@@ -15,7 +15,7 @@ function update(doneid) {
 function add_alert(status, doneid) {
     if (status) {
         if (status.success) {
-            var message = status.name + " is now "
+            var message = status.name + " is "
                             + (status.value === "true" ? "checked." : "unchecked.");
         } else {
             var message = "Failed to update " + status.name + ", please try again.";

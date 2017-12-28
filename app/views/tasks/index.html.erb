@@ -7,30 +7,37 @@
   </button>
 </div>
 <%= link_to "Create new task", new_task_path %>
-<table class="table">
+<table class="table table-sm table-hover table-bordered table-striped">
   <thead class="thead-dark">
     <tr>
-      <th scope="col"></th>
       <th scope="col"><%= sortable "priority", "#" %></th>
       <th scope="col"><%= sortable "name", "Name/Description" %></th>
       <th scope="col"><%= sortable "due_date" %></th>
       <th scope="col"><%= sortable "done" %></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |t| %>
     <tr>
-      <th scope="row">
-        <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_task_path(t), class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom'}, title: 'Edit Task' %> 
-        <%= link_to '<i class="fa fa-trash"></i>'.html_safe, task_path(t), method: :delete, data: { confirm: 'Are you sure?', toggle: 'tooltip', placement: 'bottom'}, title: 'Delete Task', class: 'btn btn-danger' %>
-      </th>
-      <td><%= t.priority %></td>
+      <th scope="row"><%= t.priority %></th>
       <td>
         <h4 class="name"><strong><%= t.name %></strong></h4>
-        <p class="description"><%= t.description %></p>
+        <%= simple_format(t.description, class: 'description') %>
       </td>
       <td><%= t.due_date if t.due_date %></td>
       <td><%= check_box_tag "done-#{t.id}", "done-#{t.id}", t.done,  onclick: "update(#{t.id})" %></td>
+      <td>
+        <span class="dropdown">
+          <button type="button" class="btn btn-secondary btn-sm" data-toggle="dropdown">
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <%= link_to '<i class="fa fa-edit"></i> Edit Task'.html_safe, edit_task_path(t), class: 'dropdown-item primary' %> 
+            <%= link_to '<i class="fa fa-trash"></i> Delete Task'.html_safe, task_path(t), method: :delete, data: { confirm: 'Are you sure?' }, class: 'dropdown-item danger' %>
+          </div>
+        </span>
+      </td>
     </tr>
     <% end %>
   </tbody>
