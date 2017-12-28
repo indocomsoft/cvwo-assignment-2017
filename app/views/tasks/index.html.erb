@@ -29,7 +29,7 @@
         <h4 class="name"><strong><%= t.name %></strong></h4>
         <p class="description"><%= t.description %></p>
       </td>
-      <td><%= t.due_date.strftime("%d/%m/%Y") if t.due_date %></td>
+      <td><%= t.due_date if t.due_date %></td>
       <td><%= check_box_tag "done-#{t.id}", "done-#{t.id}", t.done,  onclick: "update(#{t.id})" %></td>
     </tr>
     <% end %>
