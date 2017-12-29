@@ -33,8 +33,8 @@
             <i class="fa fa-ellipsis-v"></i>
           </button>
           <div class="dropdown-menu dropdown-menu-right">
-            <%= link_to '<i class="fa fa-edit"></i> Edit Task'.html_safe, edit_task_path(t), class: 'dropdown-item primary' %> 
-            <%= link_to '<i class="fa fa-trash"></i> Delete Task'.html_safe, task_path(t), method: :delete, data: { confirm: 'Are you sure?' }, class: 'dropdown-item danger' %>
+            <%= link_to '<i class="fa fa-edit"></i> Edit Task'.html_safe, edit_task_path(t), class: 'dropdown-item' %>
+            <%= link_to '<i class="fa fa-trash"></i> Delete Task'.html_safe, task_path(t), method: :delete, data: { confirm: 'Are you sure?' }, class: 'dropdown-item bg-danger text-white' %>
           </div>
         </span>
       </td>
