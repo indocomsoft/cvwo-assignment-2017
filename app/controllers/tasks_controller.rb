@@ -51,11 +51,7 @@ class TasksController < ApplicationController
   def done
     task = Task.find params[:id]
     task.done = params[:value]
-    if task.save
-      status = true
-    else
-      status = false
-    end
+    status = task.save
     render json: { success: status, name: task.name, value: params[:value] }
   end
 
