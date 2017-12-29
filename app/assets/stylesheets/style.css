@@ -31,3 +31,7 @@
 .description {
   text-align: left;
 }
+
+.toolbar {
+  margin-bottom: 0.5rem;
+}
