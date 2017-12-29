@@ -7,7 +7,7 @@
   </button>
 </div>
 <div class="toolbar">
-  <%= link_to '<i class="fa fa-plus" aria-hidden="true"></i>'.html_safe, new_task_path, class: 'btn btn-primary' %>
+  <%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_task_path, class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'New Task' %>
 </div>
 <table class="table table-sm table-hover table-bordered table-striped">
   <thead class="thead-dark">
