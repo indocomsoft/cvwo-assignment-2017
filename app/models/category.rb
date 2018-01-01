@@ -11,5 +11,7 @@
 #
 
 class Category < ApplicationRecord
-  has_and_belongs_to_many :tasks
+  has_many :taskcategories
+  has_many :tasks, -> { distinct }, through: :taskcategories
+  validates :name, uniqueness: true
 end
