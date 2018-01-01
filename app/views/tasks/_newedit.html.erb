@@ -7,6 +7,10 @@
 <% end %>
 
 <%= form_for @task, html: { id: "needs-validation", novalidate: "novalidate" } do |t| %>
+  <div class="form-group">
+    <label>Categories</label><br />
+    <%= text_field_tag "category", @task.categories.map { |c| c.name }.join(","), class: 'form-control', data: { role: 'tagsinput' } %>
+  </div>
   <div class="form-row">
     <div class="col-md">
       <div class="form-group">

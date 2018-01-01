@@ -24,14 +24,37 @@
   margin: 5px;
 }
 
-.name {
-  text-align: left;
-}
-
-.description {
+td.name {
   text-align: left;
 }
 
 .toolbar {
   margin-bottom: 0.5rem;
+}
+
+.tags {
+  white-space: nowrap;
+  font-size: 0.8em;
+  margin: 0.5em 0;
+}
+
+.mytags>.mytag:first-child:last-child {
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
+  margin-left: 0
+}
+
+.mytags>.mytag:first-child {
+  border-radius: 0.5em 0 0 0.5em;
+  margin-left: 0
+}
+
+.mytags>.mytag:last-child {
+  border-radius: 0 0.5em 0.5em 0
+}
+
+.mytag {
+  border: 1px solid #aaa;
+  margin-left: -1px;
+  padding: 0.1em 0.5em;
+  font-size: 0.8em;
 }

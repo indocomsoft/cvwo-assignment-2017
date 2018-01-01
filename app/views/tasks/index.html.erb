@@ -14,7 +14,7 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col"><%= sortable "priority", "#" %></th>
-      <th scope="col"><%= sortable "name", "Name/Description" %></th>
+      <th scope="col"><%= sortable "name", "Tasks" %></th>
       <th scope="col"><%= sortable "due_date" %></th>
       <th scope="col"><%= sortable "done" %></th>
       <th scope="col"></th>
@@ -24,9 +24,14 @@
     <% @tasks.each do |t| %>
     <tr>
       <th scope="row"><%= t.priority %></th>
-      <td>
-        <h4 class="name"><strong><%= t.name %></strong></h4>
-        <%= simple_format(t.description, class: 'description') %>
+      <td class="name">
+        <h4><strong><%= t.name %></strong></h4>
+        <div class="mytags">
+          <% t.categories.each do |c| %>
+            <span class="mytag"><%= c.name %></span>
+          <% end %>
+        </div>
+        <%= simple_format(t.description) %>
       </td>
       <td><%= t.due_date if t.due_date %></td>
       <td><%= check_box_tag "done-#{t.id}", "done-#{t.id}", t.done,  onclick: "update(#{t.id})" %></td>
