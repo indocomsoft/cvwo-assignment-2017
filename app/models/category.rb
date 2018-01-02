@@ -13,5 +13,5 @@
 class Category < ApplicationRecord
   has_many :taskcategories
   has_many :tasks, through: :taskcategories
-  validates :name, uniqueness: { message: ->(object, data) { "#{data[:value]} already exists" } }
+  validates :name, uniqueness: true
 end

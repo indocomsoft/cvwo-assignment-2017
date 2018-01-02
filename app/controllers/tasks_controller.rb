@@ -27,7 +27,7 @@ class TasksController < ApplicationController
     else
       @task = task
       flash[:error] = task.errors.full_messages.join(', ')
-      render new_task_path
+      render new_task_path, status: :bad_request
     end
   end
 

@@ -16,7 +16,7 @@ class CategoriesController < ApplicationController
     else
       @category = category
       flash[:error] = category.errors.full_messages.join(', ')
-      render new_category_path
+      render new_category_path, status: :bad_request
     end
   end
 
@@ -29,8 +29,15 @@ class CategoriesController < ApplicationController
     if category.update category_params
       redirect_to categories_path
     else
-      redirect_to edit_category_path(params[:id]), flash: { error: category.errors.full_messages.join(', ') }
+      @category = category
+      flash[:error] = category.errors.full_messages.join(', ')
+      render :edit, status: :bad_request
     end
+  end
+
+  def destroy
+    category = Category.find params[:id]
+    redirect_to categories_path if category.destroy
   end
 
   private
