@@ -21,6 +21,7 @@ class TasksController < ApplicationController
 
   def create
     task = Task.new task_params
+    commit_categories(task, params[:category])
     if task.save
       redirect_to tasks_path
     else
@@ -36,6 +37,7 @@ class TasksController < ApplicationController
 
   def update
     task = Task.find params[:id]
+    commit_categories(task, params[:category])
     if task.update task_params
       redirect_to tasks_path
     else
@@ -70,5 +72,23 @@ class TasksController < ApplicationController
   # Extract the direction to sort by. Else, ascending is the default direction
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
+  # Commit the categories for a given task into the database
+  def commit_categories(task, categories)
+    existing = task.categories.all.map { |c| c.name }
+    input = categories.split(",")
+    to_add = input - existing
+    to_rm = existing - input
+
+    to_add.each do |c|
+      category = Category.find_by(name: c)
+      category = Category.create(name: c) unless category
+      Taskcategory.create(task: task, category: category)
+    end
+
+    to_rm.each do |c|
+      task.categories.find_by(name: c).destroy
+    end
   end
 end
