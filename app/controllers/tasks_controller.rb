@@ -82,13 +82,13 @@ class TasksController < ApplicationController
     to_rm = existing - input
 
     to_add.each do |c|
-      category = Category.find_by(name: c)
-      category = Category.create(name: c) unless category
+      category = Category.find_or_create_by(name: c)
       Taskcategory.create(task: task, category: category)
     end
 
     to_rm.each do |c|
-      task.categories.find_by(name: c).destroy
+      category = Category.find_by(name: c)
+      Taskcategory.find_by(task: task, category: category).destroy
     end
   end
 end
