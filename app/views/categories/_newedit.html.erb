@@ -1,0 +1,18 @@
+<%= render "header" %>
+<div class="toolbar">
+  <%= link_to '<i class="fa fa-chevron-left" aria-hidden="true"></i>'.html_safe, 'javascript:history.back()', class: 'btn btn-primary', title: 'Back', data: { toggle: 'tooltip', placement: 'bottom' } %>
+</div>
+<% if flash[:error] %>
+  <div class="alert alert-danger" role="alert">
+    Error: <%= flash[:error] %>
+  </div>
+<% end %>
+
+<%= form_for @category, html: { id: "needs-validation", novalidate: "novalidate" } do |c| %>
+  <div class="form-group">
+    <%= c.label :name %>
+    <%= c.text_field :name, class: 'form-control' %>
+  </div>
+  <%= c.submit "Save", class: 'btn btn-primary' %>
+<% end %>
+<%= render "footer" %>

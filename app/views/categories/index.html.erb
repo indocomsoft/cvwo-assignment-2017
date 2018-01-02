@@ -1,0 +1,40 @@
+<%= render "header" %>
+<div class="toolbar">
+  <%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_category_path, class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'New Category' %>
+  <%= link_to '<i class="fa fa-list"></i>'.html_safe, tasks_path, class: 'btn btn-info', data: { toggle: 'tooltip', placement: 'bottom'}, title: 'List Tasks' %>
+</div>
+<table class="table table-sm table-hover table-bordered table-striped">
+<thead class="thead-dark">
+    <tr>
+      <th scope="col">Category</th>
+      <th scope="col">Tasks</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |c| %>
+    <tr>
+      <th scope="row"><%= c.name %></th>
+      <td class="name">
+        <ol>
+        <% c.tasks.all.each do |t| %>
+          <li><%= link_to t.name, edit_task_path(id: t.id) %></li>
+        <% end %>
+        </ol>
+      </td>
+      <td>
+        <span class="dropdown">
+          <button type="button" class="btn btn-secondary btn-sm" data-toggle="dropdown">
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <%= link_to '<i class="fa fa-edit"></i> Edit Category'.html_safe, edit_category_path(c), class: 'dropdown-item' %>
+            <%= link_to '<i class="fa fa-trash"></i> Delete Category'.html_safe, category_path(c), method: :delete, data: { confirm: 'Are you sure?' }, class: 'dropdown-item bg-danger text-white' %>
+          </div>
+        </span>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= render "footer" %>

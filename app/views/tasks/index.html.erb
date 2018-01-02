@@ -3,7 +3,7 @@
 </div>
 <div class="toolbar">
   <%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_task_path, class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'New Task' %>
-  <%= link_to '<i class="fa fa-list"></i>'.html_safe, '#', class: 'btn btn-secondary', data: { toggle: 'tooltip', placement: 'bottom'}, title: 'List Categories' %>
+  <%= link_to '<i class="fa fa-list"></i>'.html_safe, categories_path, class: 'btn btn-secondary', data: { toggle: 'tooltip', placement: 'bottom'}, title: 'List Categories' %>
 </div>
 <table class="table table-sm table-hover table-bordered table-striped">
   <thead class="thead-dark">

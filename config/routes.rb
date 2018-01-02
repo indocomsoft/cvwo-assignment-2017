@@ -11,4 +11,6 @@ Rails.application.routes.draw do
       post 'done'
     end
   end
+
+  resources :categories
 end
