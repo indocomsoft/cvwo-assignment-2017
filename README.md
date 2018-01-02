@@ -4,7 +4,7 @@ The code for the 2017 Winter Break Assignment of CVWO
 (Computing for Voluntary Welfare Organisations)
 
 ## Schema Diagram
-`has_and_belongs_to_many` association
+`has_many :through` association
 ![](schema.png)
 
 ## Notes on Permission
