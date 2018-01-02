@@ -15,5 +15,9 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should have_many(:categories).through(:taskcategories) }
+  it { should validate_numericality_of(:priority).
+        with_message("must be between 1 and 10 inclusive.").
+        is_less_than(11).
+        is_greater_than(0) }
 end
