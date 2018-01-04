@@ -45,7 +45,9 @@ class TasksController < ApplicationController
     if task.update task_params
       redirect_to tasks_path
     else
-      redirect_to edit_task_path(params[:id]), flash: { error: task.errors.full_messages.join(', ') }
+      @task = task
+      flash[:error] = task.errors.full_messages.join(', ')
+      render :edit, status: :bad_request
     end
   end
 
