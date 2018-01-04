@@ -6,8 +6,12 @@ class TasksController < ApplicationController
   # Helper to generate table header in view
   def sortable(column, title = nil)
     title ||= column.titleize
-    title += (column == sort_column ? "<i class=\"fa fa-sort-#{sort_direction}\"></i>" : "")
-    direction = (column == sort_column && sort_direction == "asc" ? "desc" : "asc")
+    title += "<i class=\"fa fa-sort-#{sort_direction}\"></i>" if column == sort_column
+    direction = if column == sort_column && sort_direction == "asc" 
+                  "desc"
+                else
+                  "asc"
+                end
     view_context.link_to title.html_safe, {sort: column, direction: direction}
   end
 

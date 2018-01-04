@@ -1,30 +1,16 @@
 function update(doneid) {
-  $.post("/tasks/" + doneid + "/done", { id: doneid, value: $("#done-" + doneid).is(":checked") })
+    var value = $("#done-" + doneid).is(":checked");
+    $.post("/tasks/" + doneid + "/done", { id: doneid, value: value });
     .done(function(msg) {
-        if (msg.success) {
-            add_alert(msg, doneid, $("#done-" + doneid).is(":checked"));
-        } else {
-            add_alert(msg, doneid, $("#done-" + doneid).is(":checked"));
-        }
+        add_alert(status.success ? msg.name + " is " + (value ? "checked." : "unchecked." )
+                                 : "Failed to update " + msg.name + ", please try again.");
     })
     .fail(function(xhr, status, error) {
-        add_alert(false, doneid, $("#done-" + doneid).is(":checked"));
+        add_alert("Connection failed while updating. Please <a href=\"javascript:location.reload()\">refresh</a> the page.");
     });
 }
 
-function add_alert(status, doneid, value) {
-    if (status) {
-        if (status.success) {
-            var message = status.name + " is "
-                            + (status.value === "true" ? "checked." : "unchecked.");
-        } else {
-            var message = "Failed to update " + status.name + ", please try again.";
-            $("#done-" + doneid).prop("checked", !status.value);
-        }
-    } else {
-        var message = "Connection failed while updating. Please <a href=\"javascript:location.reload()\">refresh</a> the page.";
-        $("#done-" + doneid).prop("checked", !value);
-    }
+function add_alert(msg) {
     var d = new Date();
     var timestamp = d.getTime();
     $("#alerts").append(
