@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 # For simplecov
 require 'simplecov'
 

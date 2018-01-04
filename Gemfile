@@ -68,4 +68,7 @@ gem 'jquery-rails'
 # Font Awesome
 gem 'font-awesome-sass'
 
+# Support for coveralls
+gem 'coveralls', require: false
+
 ruby "2.4.1"
