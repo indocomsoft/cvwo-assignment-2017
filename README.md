@@ -1,5 +1,7 @@
 # CVWO Assignment 2017
 
+[![Coverage Status](https://coveralls.io/repos/github/indocomsoft/cvwo-assignment-2017/badge.svg?branch=master)](https://coveralls.io/github/indocomsoft/cvwo-assignment-2017?branch=master)
+
 The code for the 2017 Winter Break Assignment of CVWO
 (Computing for Voluntary Welfare Organisations)
 
