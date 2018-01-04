@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-01-03T22:44:31+07:00">2018-01-03T22:44:31+07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-01-04T13:17:56+07:00">2018-01-04T13:17:56+07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">77.27%</span></span>
+    (<span class="covered_percent"><span class="red">75.89%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.84
+         2.34
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>12</b> files in total.
-    <b>110</b> relevant lines. 
+    <b>112</b> relevant lines. 
     <span class="green"><b>85</b> lines covered</span> and
-    <span class="red"><b>25</b> lines missed </span>
+    <span class="red"><b>27</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -92,12 +92,12 @@
       
       <tr>
         <td class="strong"><a href="#788231fd8a388715ab819776108d3efb0cf570f5" class="src_link" title="app/controllers/tasks_controller.rb">app/controllers/tasks_controller.rb</a></td>
-        <td class="red strong">79.25 %</td>
-        <td>94</td>
-        <td>53</td>
+        <td class="red strong">76.36 %</td>
+        <td>98</td>
+        <td>55</td>
         <td>42</td>
-        <td>11</td>
-        <td>2.4</td>
+        <td>13</td>
+        <td>3.4</td>
       </tr>
       
       <tr>
@@ -179,20 +179,20 @@
           <div class="file_list_container" id="Controllers">
   <h2>
     <span class="group_name">Controllers</span>
-    (<span class="covered_percent"><span class="yellow">86.59%</span></span>
+    (<span class="covered_percent"><span class="yellow">84.52%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         2.3
+         2.96
        </span>
     </span> hits/line)
   </h2>
   <a name="Controllers"></a>
   <div>
     <b>3</b> files in total.
-    <b>82</b> relevant lines. 
+    <b>84</b> relevant lines. 
     <span class="green"><b>71</b> lines covered</span> and
-    <span class="red"><b>11</b> lines missed </span>
+    <span class="red"><b>13</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -230,12 +230,12 @@
       
       <tr>
         <td class="strong"><a href="#788231fd8a388715ab819776108d3efb0cf570f5" class="src_link" title="app/controllers/tasks_controller.rb">app/controllers/tasks_controller.rb</a></td>
-        <td class="red strong">79.25 %</td>
-        <td>94</td>
-        <td>53</td>
+        <td class="red strong">76.36 %</td>
+        <td>98</td>
+        <td>55</td>
         <td>42</td>
-        <td>11</td>
-        <td>2.4</td>
+        <td>13</td>
+        <td>3.4</td>
       </tr>
       
     </tbody>
@@ -998,11 +998,11 @@
         <div class="source_table" id="788231fd8a388715ab819776108d3efb0cf570f5">
   <div class="header">
     <h3>app/controllers/tasks_controller.rb</h3>
-    <h4><span class="red">79.25 %</span> covered</h4>
+    <h4><span class="red">76.36 %</span> covered</h4>
     <div>
-      <b>53</b> relevant lines. 
+      <b>55</b> relevant lines. 
       <span class="green"><b>42</b> lines covered</span> and
-      <span class="red"><b>11</b> lines missed.</span>
+      <span class="red"><b>13</b> lines missed.</span>
     </div>
   </div>
   
@@ -1060,43 +1060,43 @@
         <li class="missed" data-hits="0" data-linenumber="9">
           
           
-          <code class="ruby">    title += (column == sort_column ? &quot;&lt;i class=\&quot;fa fa-sort-#{sort_direction}\&quot;&gt;&lt;/i&gt;&quot; : &quot;&quot;)</code>
+          <code class="ruby">    title += &quot;&lt;i class=\&quot;fa fa-sort-#{sort_direction}\&quot;&gt;&lt;/i&gt;&quot; if column == sort_column</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="10">
           
           
-          <code class="ruby">    direction = (column == sort_column &amp;&amp; sort_direction == &quot;asc&quot; ? &quot;desc&quot; : &quot;asc&quot;)</code>
+          <code class="ruby">    direction = if column == sort_column &amp;&amp; sort_direction == &quot;asc&quot; </code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="11">
           
           
-          <code class="ruby">    view_context.link_to title.html_safe, {sort: column, direction: direction}</code>
+          <code class="ruby">                  &quot;desc&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="12">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">                else</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="13">
+        <li class="missed" data-hits="0" data-linenumber="13">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">                  &quot;asc&quot;</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="14">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="14">
           
-          <code class="ruby">  def index</code>
+          
+          <code class="ruby">                end</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="15">
-          <span class="hits">2</span>
+        <li class="missed" data-hits="0" data-linenumber="15">
           
-          <code class="ruby">    @tasks = Task.order(sort_column + &quot; &quot; + sort_direction)</code>
+          
+          <code class="ruby">    view_context.link_to title.html_safe, {sort: column, direction: direction}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="16">
@@ -1114,13 +1114,13 @@
         <li class="covered" data-hits="1" data-linenumber="18">
           <span class="hits">1</span>
           
-          <code class="ruby">  def new</code>
+          <code class="ruby">  def index</code>
         </li>
       
         <li class="covered" data-hits="2" data-linenumber="19">
           <span class="hits">2</span>
           
-          <code class="ruby">    @task = Task.new</code>
+          <code class="ruby">    @tasks = Task.order(sort_column + &quot; &quot; + sort_direction)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="20">
@@ -1138,85 +1138,85 @@
         <li class="covered" data-hits="1" data-linenumber="22">
           <span class="hits">1</span>
           
-          <code class="ruby">  def create</code>
+          <code class="ruby">  def new</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="23">
-          <span class="hits">7</span>
-          
-          <code class="ruby">    task = Task.new task_params</code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="24">
-          <span class="hits">7</span>
-          
-          <code class="ruby">    commit_categories(task, params[:category])</code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="25">
-          <span class="hits">7</span>
-          
-          <code class="ruby">    if task.save</code>
-        </li>
-      
-        <li class="covered" data-hits="5" data-linenumber="26">
-          <span class="hits">5</span>
-          
-          <code class="ruby">      redirect_to tasks_path</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="27">
-          
-          
-          <code class="ruby">    else</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="28">
+        <li class="covered" data-hits="2" data-linenumber="23">
           <span class="hits">2</span>
           
-          <code class="ruby">      @task = task</code>
+          <code class="ruby">    @task = Task.new</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="29">
-          <span class="hits">2</span>
-          
-          <code class="ruby">      flash[:error] = task.errors.full_messages.join(&#39;, &#39;)</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="30">
-          <span class="hits">2</span>
-          
-          <code class="ruby">      render new_task_path, status: :bad_request</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="31">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="32">
+        <li class="never" data-hits="" data-linenumber="24">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="33">
+        <li class="never" data-hits="" data-linenumber="25">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="34">
+        <li class="covered" data-hits="1" data-linenumber="26">
           <span class="hits">1</span>
           
-          <code class="ruby">  def edit</code>
+          <code class="ruby">  def create</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="35">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="11" data-linenumber="27">
+          <span class="hits">11</span>
           
-          <code class="ruby">    @task = Task.find params[:id]</code>
+          <code class="ruby">    task = Task.new task_params</code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="28">
+          <span class="hits">11</span>
+          
+          <code class="ruby">    commit_categories(task, params[:category])</code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="29">
+          <span class="hits">11</span>
+          
+          <code class="ruby">    if task.save</code>
+        </li>
+      
+        <li class="covered" data-hits="9" data-linenumber="30">
+          <span class="hits">9</span>
+          
+          <code class="ruby">      redirect_to tasks_path</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="31">
+          
+          
+          <code class="ruby">    else</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="32">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      @task = task</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="33">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      flash[:error] = task.errors.full_messages.join(&#39;, &#39;)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="34">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      render new_task_path, status: :bad_request</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="35">
+          
+          
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="36">
@@ -1234,340 +1234,364 @@
         <li class="covered" data-hits="1" data-linenumber="38">
           <span class="hits">1</span>
           
+          <code class="ruby">  def edit</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="39">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    @task = Task.find params[:id]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="40">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="41">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="42">
+          <span class="hits">1</span>
+          
           <code class="ruby">  def update</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="39">
+        <li class="missed" data-hits="0" data-linenumber="43">
           
           
           <code class="ruby">    task = Task.find params[:id]</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="40">
-          
-          
-          <code class="ruby">    commit_categories(task, params[:category])</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="41">
-          
-          
-          <code class="ruby">    if task.update task_params</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="42">
-          
-          
-          <code class="ruby">      redirect_to tasks_path</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="43">
-          
-          
-          <code class="ruby">    else</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="44">
           
           
-          <code class="ruby">      redirect_to edit_task_path(params[:id]), flash: { error: task.errors.full_messages.join(&#39;, &#39;) }</code>
+          <code class="ruby">    commit_categories(task, params[:category])</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="45">
+        <li class="missed" data-hits="0" data-linenumber="45">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">    if task.update task_params</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="46">
+        <li class="missed" data-hits="0" data-linenumber="46">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">      redirect_to tasks_path</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="47">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="48">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="48">
           
-          <code class="ruby">  def destroy</code>
+          
+          <code class="ruby">      redirect_to edit_task_path(params[:id]), flash: { error: task.errors.full_messages.join(&#39;, &#39;) }</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="49">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="49">
           
-          <code class="ruby">    task = Task.find params[:id]</code>
+          
+          <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="50">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="50">
           
-          <code class="ruby">    redirect_to tasks_path if task.destroy</code>
+          
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="51">
           
           
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="52">
-          
-          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="53">
+        <li class="covered" data-hits="1" data-linenumber="52">
           <span class="hits">1</span>
           
-          <code class="ruby">  def done</code>
+          <code class="ruby">  def destroy</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="54">
+        <li class="covered" data-hits="2" data-linenumber="53">
           <span class="hits">2</span>
           
           <code class="ruby">    task = Task.find params[:id]</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="55">
+        <li class="covered" data-hits="2" data-linenumber="54">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    redirect_to tasks_path if task.destroy</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="55">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="56">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="57">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def done</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="58">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    task = Task.find params[:id]</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="59">
           <span class="hits">2</span>
           
           <code class="ruby">    task.done = params[:value]</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="56">
+        <li class="covered" data-hits="2" data-linenumber="60">
           <span class="hits">2</span>
           
           <code class="ruby">    status = task.save</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="57">
+        <li class="covered" data-hits="2" data-linenumber="61">
           <span class="hits">2</span>
           
           <code class="ruby">    render json: { success: status, name: task.name, value: params[:value] }</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="58">
+        <li class="never" data-hits="" data-linenumber="62">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="59">
+        <li class="never" data-hits="" data-linenumber="63">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="60">
+        <li class="covered" data-hits="1" data-linenumber="64">
           <span class="hits">1</span>
           
           <code class="ruby">  private</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="61">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="62">
-          
-          
-          <code class="ruby">  # Sanitise parameter</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="63">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def task_params</code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="64">
-          <span class="hits">7</span>
-          
-          <code class="ruby">    params.require(:task).permit(:name, :description, :priority, :done, :due_date)</code>
-        </li>
-      
         <li class="never" data-hits="" data-linenumber="65">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="66">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  # Sanitise parameter</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="67">
-          
-          
-          <code class="ruby">  # Extract the column to sort by. Else, priority is the default column sorting mode</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="68">
+        <li class="covered" data-hits="1" data-linenumber="67">
           <span class="hits">1</span>
           
-          <code class="ruby">  def sort_column</code>
+          <code class="ruby">  def task_params</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="69">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="11" data-linenumber="68">
+          <span class="hits">11</span>
           
-          <code class="ruby">    Task.column_names.include?(params[:sort])? params[:sort] : &quot;priority&quot;</code>
+          <code class="ruby">    params.require(:task).permit(:name, :description, :priority, :done, :due_date)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="69">
+          
+          
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="70">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="71">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  # Extract the column to sort by. Else, priority is the default column sorting mode</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="72">
-          
-          
-          <code class="ruby">  # Extract the direction to sort by. Else, ascending is the default direction</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="73">
+        <li class="covered" data-hits="1" data-linenumber="72">
           <span class="hits">1</span>
           
-          <code class="ruby">  def sort_direction</code>
+          <code class="ruby">  def sort_column</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="74">
+        <li class="covered" data-hits="2" data-linenumber="73">
           <span class="hits">2</span>
           
-          <code class="ruby">    %w[asc desc].include?(params[:direction]) ? params[:direction] : &quot;asc&quot;</code>
+          <code class="ruby">    Task.column_names.include?(params[:sort])? params[:sort] : &quot;priority&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="74">
+          
+          
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="75">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="76">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  # Extract the direction to sort by. Else, ascending is the default direction</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="77">
-          
-          
-          <code class="ruby">  # Commit the categories for a given task into the database</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="78">
+        <li class="covered" data-hits="1" data-linenumber="77">
           <span class="hits">1</span>
           
-          <code class="ruby">  def commit_categories(task, categories)</code>
+          <code class="ruby">  def sort_direction</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="79">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="2" data-linenumber="78">
+          <span class="hits">2</span>
           
-          <code class="ruby">    existing = task.categories.all.map { |c| c.name }</code>
+          <code class="ruby">    %w[asc desc].include?(params[:direction]) ? params[:direction] : &quot;asc&quot;</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="80">
-          <span class="hits">7</span>
-          
-          <code class="ruby">    input = categories.split(&quot;,&quot;)</code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="81">
-          <span class="hits">7</span>
-          
-          <code class="ruby">    to_add = input - existing</code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="82">
-          <span class="hits">7</span>
-          
-          <code class="ruby">    to_rm = existing - input</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="83">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="84">
-          <span class="hits">7</span>
-          
-          <code class="ruby">    to_add.each do |c|</code>
-        </li>
-      
-        <li class="covered" data-hits="3" data-linenumber="85">
-          <span class="hits">3</span>
-          
-          <code class="ruby">      category = Category.find_or_create_by(name: c)</code>
-        </li>
-      
-        <li class="covered" data-hits="3" data-linenumber="86">
-          <span class="hits">3</span>
-          
-          <code class="ruby">      Taskcategory.create(task: task, category: category)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="87">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="88">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="89">
-          <span class="hits">7</span>
-          
-          <code class="ruby">    to_rm.each do |c|</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="90">
-          
-          
-          <code class="ruby">      category = Category.find_by(name: c)</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="91">
-          
-          
-          <code class="ruby">      Taskcategory.find_by(task: task, category: category).destroy</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="92">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="93">
+        <li class="never" data-hits="" data-linenumber="79">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="94">
+        <li class="never" data-hits="" data-linenumber="80">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="81">
+          
+          
+          <code class="ruby">  # Commit the categories for a given task into the database</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="82">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def commit_categories(task, categories)</code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="83">
+          <span class="hits">11</span>
+          
+          <code class="ruby">    existing = task.categories.all.map { |c| c.name }</code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="84">
+          <span class="hits">11</span>
+          
+          <code class="ruby">    input = categories.split(&quot;,&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="85">
+          <span class="hits">11</span>
+          
+          <code class="ruby">    to_add = input - existing</code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="86">
+          <span class="hits">11</span>
+          
+          <code class="ruby">    to_rm = existing - input</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="87">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="88">
+          <span class="hits">11</span>
+          
+          <code class="ruby">    to_add.each do |c|</code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="89">
+          <span class="hits">11</span>
+          
+          <code class="ruby">      category = Category.find_or_create_by(name: c)</code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="90">
+          <span class="hits">11</span>
+          
+          <code class="ruby">      Taskcategory.create(task: task, category: category)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="91">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="92">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="93">
+          <span class="hits">11</span>
+          
+          <code class="ruby">    to_rm.each do |c|</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="94">
+          
+          
+          <code class="ruby">      category = Category.find_by(name: c)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="95">
+          
+          
+          <code class="ruby">      Taskcategory.find_by(task: task, category: category).destroy</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="96">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="97">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="98">
           
           
           <code class="ruby">end</code>

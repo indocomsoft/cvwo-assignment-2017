@@ -32,12 +32,22 @@ RSpec.describe TasksController, type: :controller do
           expect(Category.find_by(name: 'asd').tasks.count).to eq(1)
         end
         it 'should result in Task.find_by(name:"test").categories.count to eq 1' do
-          expect(Task.find_by(name: 'Test').categories.count).to eq(1)\
+          expect(Task.find_by(name: 'Test').categories.count).to eq(1)
         end
       end
 
       context "given multiple new categories" do
-
+        before(:each) { post :create, { params: { task: { name: 'Test', priority: 1 }, category: 'asd,anu' } } }
+        it { should redirect_to tasks_path }
+        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
+          expect(Category.find_by(name: 'asd').tasks.count).to eq(1)
+        end
+        it 'should result in Category.find_by(name: "anu").tasks.count to eq 1' do
+          expect(Category.find_by(name: 'anu').tasks.count).to eq(1)
+        end
+        it 'should result in Task.find_by(name:"test").categories.count to eq 2' do
+          expect(Task.find_by(name: 'Test').categories.count).to eq(2)
+        end
       end
 
       context "given a mix of new and exiting categories" do
@@ -48,9 +58,7 @@ RSpec.describe TasksController, type: :controller do
 
       end
 
-      context "given one less category" do
 
-      end
     end
 
     context "given invalid task" do
@@ -77,6 +85,14 @@ RSpec.describe TasksController, type: :controller do
           get :edit, params: { id: 'unknown' }
         }.to raise_error(ActiveRecord::RecordNotFound) 
       end
+    end
+
+    context "given one less category" do
+        
+    end
+
+    context "given a mix of new and exiting categories" do
+
     end
   end
 
