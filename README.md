@@ -1,7 +1,7 @@
 # CVWO Assignment 2017
 
 ![Build Status](https://circleci.com/gh/indocomsoft/cvwo-assignment-2017.png?style=shield&circle-token=:circle-token)
-[![Coverage Status](https://coveralls.io/repos/github/indocomsoft/cvwo-assignment-2017/badge.svg?branch=master)](https://coveralls.io/github/indocomsoft/cvwo-assignment-2017?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/indocomsoft/cvwo-assignment-2017/badge.svg?branch=master&service=github)](https://coveralls.io/github/indocomsoft/cvwo-assignment-2017?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7e7481dcc583a0c7feab/maintainability)](https://codeclimate.com/github/indocomsoft/cvwo-assignment-2017/maintainability)
 
 The code for the 2017 Winter Break Assignment of CVWO
