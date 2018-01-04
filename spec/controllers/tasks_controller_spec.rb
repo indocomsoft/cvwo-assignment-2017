@@ -153,13 +153,53 @@ RSpec.describe TasksController, type: :controller do
         end
       end
       context "given multiple new categories" do
-
+        before(:each) do
+          post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'asd,anu' } }
+        end
+        it { should redirect_to tasks_path }
+        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
+          expect(Category.find_by(name: 'asd').tasks.count).to eq(1)
+        end
+        it 'should result in Category.find_by(name: "anu").tasks.count to eq 1' do
+          expect(Category.find_by(name: 'asd').tasks.count).to eq(1)
+        end
+        it 'should result in Task.find_by(name:"test").categories.count to eq 2' do
+          expect(Task.find_by(name: 'Test').categories.count).to eq(2)
+        end
       end
       context "given addition of one existing category" do
-
+        before(:each) do
+          @category = Category.create(name: 'asd')
+        end
+        it do
+          post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'asd' } }
+          should redirect_to tasks_path
+        end
+        it do
+          expect {
+            post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'asd' } }
+          }.to change { @task.categories.count }.by(1)
+           .and change { @category.tasks.count }.by(1)
+        end
       end
       context "given addition of one new and one existing categories" do
-
+        before(:each) do
+          @category = Category.create(name: 'asd')
+        end
+        it do
+          post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'asd,anu' } }
+          should redirect_to tasks_path
+        end
+        it do
+          post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'asd,anu' } }
+          expect(Category.find_by(name:'anu').tasks.count).to eq(1)
+        end
+        it do
+          expect {
+            post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'asd,anu' } }
+          }.to change { @category.tasks.count }.by(1)
+           .and change { @task.categories.count }.by(2)
+        end
       end
     end
     context "given task with one category" do
@@ -188,13 +228,56 @@ RSpec.describe TasksController, type: :controller do
         end
       end
       context "given one new category" do
-
+        it do
+          post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'anu,asd' } }
+          should redirect_to tasks_path
+        end
+        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
+          post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'anu,asd' } }
+          expect(Category.find_by(name: 'asd').tasks.count).to eq(1)
+        end
+        it do
+          expect {
+            post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'anu,asd' } }
+          }.to change { @task.categories.count }.by(1)
+           .and change { @category.tasks.count }.by(0)
+        end
       end
       context "given multiple new categories" do
-
+        it do
+          post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'anu,abc,asd' } }
+          should redirect_to tasks_path
+        end
+        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
+          post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'anu,abc,asd' } }
+          expect(Category.find_by(name: 'asd').tasks.count).to eq(1)
+        end
+        it 'should result in Category.find_by(name: "abc").tasks.count to eq 1' do
+          post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'anu,abc,asd' } }
+          expect(Category.find_by(name: 'abc').tasks.count).to eq(1)
+        end
+        it do
+          expect {
+            post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'anu,abc,asd' } }
+          }.to change { @task.categories.count }.by(2)
+           .and change { @category.tasks.count }.by(0)
+        end
       end
       context "given addition of one existing category" do
-
+        before(:each) do
+          @cat2 = Category.create(name: 'asd')
+        end
+        it do
+          post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'anu,asd' } }
+          should redirect_to tasks_path
+        end
+        it do
+          expect {
+            post :update, { params: { id: @task.id, task: { name: 'Test', priority: 1 }, category: 'anu,asd' } }
+          }.to change { @task.categories.count }.by(1)
+           .and change { @category.tasks.count }.by(0)
+           .and change { @cat2.tasks.count }.by(1)
+        end
       end
       context "given addition of one new and one existing categories" do
 
@@ -257,13 +340,17 @@ RSpec.describe TasksController, type: :controller do
   describe "POST #done" do
     before(:each) { @task = Task.create(name: 'Test', priority: 1) }
     context "given valid id" do
-      before { post :done, { params: { id: @task.id, value: true } }}
+      before { post :done, { params: { id: @task.id, value: true } } }
       it { should respond_with :ok }
       it { expect(response.body).to eq({ success: true, name: @task.name, value: "true" }.to_json) }
     end
 
     context "given invalid id" do
-
+      it do
+        expect {
+          post :done, { params: { id: 'unknown', value: true } }
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
   end
 end
