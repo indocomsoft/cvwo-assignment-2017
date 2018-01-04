@@ -1,13 +1,13 @@
 function update(doneid) {
     var value = $("#done-" + doneid).is(":checked");
-    $.post("/tasks/" + doneid + "/done", { id: doneid, value: value });
-    .done(function(msg) {
-        add_alert(status.success ? msg.name + " is " + (value ? "checked." : "unchecked." )
-                                 : "Failed to update " + msg.name + ", please try again.");
-    })
-    .fail(function(xhr, status, error) {
-        add_alert("Connection failed while updating. Please <a href=\"javascript:location.reload()\">refresh</a> the page.");
-    });
+    $.post("/tasks/" + doneid + "/done", { id: doneid, value: value })
+        .done(function(msg) {
+            add_alert(status.success ? msg.name + " is " + (value ? "checked." : "unchecked." )
+                                     : "Failed to update " + msg.name + ", please try again.");
+        })
+        .fail(function(xhr, status, error) {
+            add_alert("Connection failed while updating. Please <a href=\"javascript:location.reload()\">refresh</a> the page.");
+        });
 }
 
 function add_alert(msg) {

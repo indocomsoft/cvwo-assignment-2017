@@ -17,5 +17,6 @@
 //= require turbolinks
 //= require bootstrap-datepicker
 //= require bootstrap-sprockets
+//= require bootstrap-tagsinput
 //= require typeahead.bundle
 //= require_tree .
