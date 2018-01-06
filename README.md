@@ -1,8 +1,9 @@
-# CVWO Assignment 2017
+# CVWO Assignment 2017 - MyToDo
 [![Build Status](https://circleci.com/gh/indocomsoft/cvwo-assignment-2017.png?style=shield&circle-token=:circle-token)](https://circleci.com/gh/indocomsoft/cvwo-assignment-2017/) [![Coverage Status](https://coveralls.io/repos/github/indocomsoft/cvwo-assignment-2017/badge.svg?branch=master&update=1)](https://coveralls.io/github/indocomsoft/cvwo-assignment-2017?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/7e7481dcc583a0c7feab/maintainability)](https://codeclimate.com/github/indocomsoft/cvwo-assignment-2017/maintainability)
 
-The code for the 2017 Winter Break Assignment of CVWO
-(Computing for Voluntary Welfare Organisations)
+The code for my 2017 Winter Break Assignment of CVWO
+(Computing for Voluntary Welfare Organisations).
+The app is called **MyToDo**
 
 ## Schema Diagram
 `has_many :through` association
