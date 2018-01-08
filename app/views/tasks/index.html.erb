@@ -30,7 +30,7 @@
               <% bgcolour = c.colour; fgcolour = choose_fgcolour(c.colour); %>
             <% end %>
             <span class="mytag" style="background-color:<%= bgcolour %>; color: <%= fgcolour %>">
-              <%= c.name %>
+              <%= link_to c.name, edit_category_path(c), class: 'taglink' %>
             </span>
           <% end %>
         </div>

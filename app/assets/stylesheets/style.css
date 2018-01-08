@@ -57,3 +57,8 @@ td.name {
   margin-left: -1px;
   padding: 0.1em 0.5em;
 }
+
+a.taglink {
+  text-decoration: none;
+  color: inherit;
+}
