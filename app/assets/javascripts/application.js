@@ -18,5 +18,6 @@
 //= require bootstrap-datepicker
 //= require bootstrap-sprockets
 //= require bootstrap-tagsinput
+//= require bootstrap-colorpicker
 //= require typeahead.bundle
 //= require_tree .
