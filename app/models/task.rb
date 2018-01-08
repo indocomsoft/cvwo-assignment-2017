@@ -8,7 +8,7 @@
 #  description :text
 #  due_date    :date
 #  priority    :integer
-#  done        :boolean
+#  done        :boolean          default(FALSE), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
