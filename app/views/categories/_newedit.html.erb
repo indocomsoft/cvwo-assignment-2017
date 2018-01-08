@@ -9,10 +9,42 @@
 <% end %>
 
 <%= form_for @category, html: { id: "needs-validation", novalidate: "novalidate" } do |c| %>
-  <div class="form-group">
-    <%= c.label :name %>
-    <%= c.text_field :name, class: 'form-control' %>
+  <div class="form-row">
+    <div class="form-group col-md">
+      <%= c.label :name %>
+      <%= c.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="form-group col-md">
+      <%= check_box_tag "check-colour", "", !@category.colour.nil? %>
+      <label for="check-colour">
+        Use custom colour?
+      </label>
+      <div class="input-group colorpicker-component" id="colourpicker">
+        <%= c.text_field :colour, class: 'form-control' %>
+      </div>
+    </div>
   </div>
   <%= c.submit "Save", class: 'btn btn-primary' %>
 <% end %>
 <%= render "footer" %>
+<script type="text/javascript">
+  $(document).on('turbolinks:load',function(){
+    $("#category_colour").hide();
+    if (!$("#check-colour")[0].checked) {
+      $("#colourpicker").hide();
+    }
+    $("#colourpicker").colorpicker({
+      color: '<%= if !@category.colour.nil?; @category.colour; else; '#FFFFFF'; end %>',
+      inline: true,
+      container: true
+    });
+  });
+  $("#check-colour").change(function(){
+    if (this.checked) {
+      $("#colourpicker").show("slow");
+    } else {
+      $("category_colour")[0].value = "nil";
+      $("#colourpicker").hide("slow");
+    }
+  });
+</script>

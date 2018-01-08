@@ -23,7 +23,15 @@
         <h4><strong><%= t.name %></strong></h4>
         <div class="mytags">
           <% t.categories.each do |c| %>
-            <span class="mytag"><%= c.name %></span>
+            <% # Code to decide tags colour %> 
+            <% if c.colour.nil? %>
+              <% bgcolour = "#FFFFFF"; fgcolour = "#000000" %>
+            <% else %>
+              <% bgcolour = c.colour; fgcolour = choose_fgcolour(c.colour); %>
+            <% end %>
+            <span class="mytag" style="background-color:<%= bgcolour %>; color: <%= fgcolour %>">
+              <%= c.name %>
+            </span>
           <% end %>
         </div>
         <%= simple_format(t.description) %>

@@ -3,7 +3,7 @@
   <%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_category_path, class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'New Category' %>
   <%= link_to '<i class="fa fa-list"></i>'.html_safe, tasks_path, class: 'btn btn-info', data: { toggle: 'tooltip', placement: 'bottom'}, title: 'List Tasks' %>
 </div>
-<table class="table table-sm table-hover table-bordered table-striped">
+<table class="table table-sm table-hover table-bordered">
 <thead class="thead-dark">
     <tr>
       <th scope="col">Category</th>
@@ -13,8 +13,13 @@
   </thead>
   <tbody>
     <% @categories.each do |c| %>
+    <% if c.colour.nil? %>
+      <% bgcolour = "#FFFFFF"; fgcolour = "#000000" %>
+    <% else %>
+      <% bgcolour = c.colour; fgcolour = choose_fgcolour(c.colour); %>
+    <% end %>
     <tr>
-      <th scope="row"><%= c.name %></th>
+      <th scope="row" style="background-color:<%= bgcolour %>; color: <%= fgcolour %>"><%= c.name %></th>
       <td class="name">
         <ol>
         <% c.tasks.all.each do |t| %>
