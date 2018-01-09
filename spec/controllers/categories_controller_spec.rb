@@ -14,7 +14,7 @@ RSpec.describe CategoriesController, type: :controller do
   end
 
   describe "POST #create" do
-    before(:each) { @params = { category: { name: 'Test'} } }
+    before(:each) { @params = { category: { name: 'Test'}, task: '' } }
 
     it { should permit(:name).for(:create, verb: :post, params: @params).on(:category) }
     
@@ -61,18 +61,18 @@ RSpec.describe CategoriesController, type: :controller do
     end
     it do
       should permit(:name).
-        for(:update, verb: :post, params: { id: @category.id, category: { name: "NewTest"} } ).
+        for(:update, verb: :post, params: { id: @category.id, category: { name: "NewTest"}, task: '' } ).
         on(:category)
     end
     context "given valid new name" do
       before(:each) do
-        post :update, { params: { id: @category.id, category: { name: "NewTest" } } }
+        post :update, { params: { id: @category.id, category: { name: "NewTest" }, task: '' } }
       end
       it { should redirect_to categories_path }
     end
     context "given invalid new name" do
       before(:each) do
-        post :update, { params: { id: @category.id, category: { name: "Test2" } } }
+        post :update, { params: { id: @category.id, category: { name: "Test2" }, task: '' } }
       end
       it { should respond_with :bad_request }
       it { should render_template "edit" }
