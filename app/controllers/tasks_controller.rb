@@ -15,7 +15,7 @@ class TasksController < ApplicationController
 
   def create
     task = Task.new task_params
-    commit_categories(task, params[:category])
+    task.assign_categories(params[:category])
     if task.save
       redirect_to tasks_path
     else
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
 
   def update
     task = Task.find params[:id]
-    commit_categories(task, params[:category])
+    task.assign_categories(params[:category])
     if task.update task_params
       redirect_to tasks_path
     else
@@ -58,24 +58,6 @@ class TasksController < ApplicationController
   # Sanitise parameter
   def task_params
     params.require(:task).permit(:name, :description, :priority, :done, :due_date)
-  end
-
-  # Commit the categories for a given task into the database
-  def commit_categories(task, categories)
-    existing = task.categories.all.map { |c| c.name }
-    input = categories.split(",")
-    to_add = input - existing
-    to_rm = existing - input
-
-    to_add.each do |c|
-      category = Category.find_or_create_by(name: c)
-      Taskcategory.create(task: task, category: category)
-    end
-
-    to_rm.each do |c|
-      category = Category.find_by(name: c)
-      Taskcategory.find_by(task: task, category: category).destroy
-    end
   end
 
   # Extract the column to sort by. Else, priority is the default column sorting mode
