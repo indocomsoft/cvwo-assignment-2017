@@ -9,9 +9,17 @@
 <% end %>
 
 <%= form_for @task, html: { id: "needs-validation", novalidate: "novalidate" } do |t| %>
-  <div class="form-group">
-    <label>Categories</label><br />
-    <%= text_field_tag "category", @task.categories.map { |c| c.name }.join(","), class: 'form-control', data: { role: 'tagsinput' } %>
+  <div class="form-row">
+    <div class="form-group col-md">
+      <label>Categories</label><br />
+      <%= text_field_tag "category", @task.categories.map { |c| c.name }.join(","), class: 'form-control', data: { role: 'tagsinput' } %>
+    </div>
+    <div class="form-group col-md">
+      <%= t.check_box :done %>
+      <label for="task_done">
+        Done?
+      </label>
+    </div>
   </div>
   <div class="form-row">
     <div class="col-md">
