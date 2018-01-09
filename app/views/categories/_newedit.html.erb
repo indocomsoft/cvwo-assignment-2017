@@ -24,27 +24,52 @@
       </div>
     </div>
   </div>
+  <div class="form-group">
+    <label>Tasks</label>
+    <%= text_field_tag "task", @category.tasks.map { |t| t.name }.join(","), class: 'form-control', data: { role: 'tagsinput' } %>
+  </div>
   <%= c.submit "Save", class: 'btn btn-primary' %>
 <% end %>
 <%= render "footer" %>
 <script type="text/javascript">
-  $(document).on('turbolinks:load',function(){
-    $("#category_colour").hide();
-    if (!$("#check-colour")[0].checked) {
-      $("#colourpicker").hide();
-    }
-    $("#colourpicker").colorpicker({
-      color: '<%= if !@category.colour.nil?; @category.colour; else; '#FFFFFF'; end %>',
-      inline: true,
-      container: true
-    });
+$(document).on('turbolinks:load',function(){
+  $("#category_colour").hide();
+  if (!$("#check-colour")[0].checked) {
+    $("#colourpicker").hide();
+  }
+  $("#colourpicker").colorpicker({
+    color: '<%= if !@category.colour.nil?; @category.colour; else; '#FFFFFF'; end %>',
+    inline: true,
+    container: true
   });
-  $("#check-colour").change(function(){
-    if (this.checked) {
-      $("#colourpicker").show("slow");
-    } else {
-      $("category_colour")[0].value = "nil";
-      $("#colourpicker").hide("slow");
+});
+$("#check-colour").change(function(){
+  if (this.checked) {
+    $("#colourpicker").show("slow");
+  } else {
+    $("category_colour")[0].value = "nil";
+    $("#colourpicker").hide("slow");
+  }
+});
+var tasknames = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: {
+    url: '/tasks/all',
+    filter: function(list) {
+      return $.map(list, function(categoryname) {
+        return { name: categoryname };
+      })
     }
-  });
+  }
+});
+$("#task").tagsinput({
+  freeInput: false,
+  typeaheadjs: {
+    name: 'tasknames',
+    displayKey: 'name',
+    valueKey: 'name',
+    source: tasknames.ttAdapter()
+  }
+})
 </script>

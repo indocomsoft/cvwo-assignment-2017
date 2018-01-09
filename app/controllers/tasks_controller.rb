@@ -5,6 +5,10 @@ class TasksController < ApplicationController
     @tasks = Task.order(sort_column + " " + sort_direction)
   end
 
+  def show
+    render json: Task.all.map { |e| e.name }.to_a if params[:id] == "all"
+  end
+
   def new
     @task = Task.new
   end

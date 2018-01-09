@@ -16,6 +16,7 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   it { should have_many(:categories).through(:taskcategories) }
+  it { should validate_uniqueness_of(:name) }
   it { should validate_numericality_of(:priority).
         with_message("must be between 1 and 10 inclusive.").
         is_less_than(11).
