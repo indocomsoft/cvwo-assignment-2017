@@ -5,6 +5,10 @@ class CategoriesController < ApplicationController
     @categories = Category.all
   end
 
+  def show
+    render json: Category.all.map { |e| e.name }.to_a if params[:id] == "all"
+  end
+
   def new
     @category = Category.new
   end

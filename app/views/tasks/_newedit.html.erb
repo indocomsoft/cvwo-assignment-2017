@@ -65,4 +65,25 @@
     }, false);
   }, false);
 })();
+var categorynames = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: {
+    url: '/categories/all',
+    filter: function(list) {
+      return $.map(list, function(categoryname) {
+        return { name: categoryname };
+      })
+    }
+  }
+});
+
+$('#category').tagsinput({
+  typeaheadjs: {
+    name: 'categorynames',
+    displayKey: 'name',
+    valueKey: 'name',
+    source: categorynames.ttAdapter()
+  }
+});
 </script>
