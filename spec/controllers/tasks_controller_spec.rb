@@ -7,6 +7,24 @@ RSpec.describe TasksController, type: :controller do
     it { should render_template "index" }
   end
 
+  describe "GET #show" do
+    before(:each) do
+      @task = Task.create(name: 'Test1', priority: 1)
+      @task2 = Task.create(name: 'Test2', priority: 7)
+    end
+    context "tasks/all" do
+      before(:each) { get :show, params: { id: 'all' }, format: :json }
+      it { should respond_with :ok }
+      it { expect(response.body).to eq(Task.all.map { |e| e.name }.to_a.to_json) }
+    end
+
+    context "else" do
+      before(:each) { get :show, params: { id: @task.id }, format: :json }
+      it { should respond_with :no_content }
+      it { expect(response.body).to eq("") }
+    end
+  end
+
   describe "GET #new" do
     before { get :new }
     it { should render_template "new" }

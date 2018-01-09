@@ -7,6 +7,23 @@ RSpec.describe CategoriesController, type: :controller do
     it { should respond_with :ok }
   end
 
+  describe "GET #show" do
+    before(:each) do
+      @cat1 = Category.create(name: '1')
+      @cat2 = Category.create(name: '2')
+    end
+    describe "categories/all" do
+      before(:each) { get :show, params: { id: 'all' }, format: :json }
+      it { should respond_with :ok }
+      it { expect(response.body).to eq(Category.all.map { |e| e.name }.to_a.to_json) }
+    end
+    describe "else" do
+      before(:each) { get :show, params: { id: @cat1.id }, format: :json }
+      it { should respond_with :no_content }
+      it { expect(response.body).to eq("") }
+    end
+  end
+
   describe "GET #new" do
     before { get :new }
     it { should render_template "new" }
