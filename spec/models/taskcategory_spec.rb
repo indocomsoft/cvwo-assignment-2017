@@ -8,6 +8,11 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+# Indexes
+#
+#  index_taskcategories_on_category_id  (category_id)
+#  index_taskcategories_on_task_id      (task_id)
+#
 
 require 'rails_helper'
 
