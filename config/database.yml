@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # SQLite version 3.x
 #   gem install sqlite3
 #

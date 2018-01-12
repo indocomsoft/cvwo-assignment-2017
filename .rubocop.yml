@@ -1,72 +1,16 @@
+# inherit_from: .rubocop_todo.yml
+
+inherit_gem:
+  rubocop-rails:
+    - config/rails.yml
+
 AllCops:
-  TargetRubyVersion: 2.4
-  TargetRailsVersion: 5.1.4
-  Include:
-    - '**/Rakefile'
-    - '**/config.ru'
   Exclude:
-    - 'db/schema.rb'
-    - 'db/migrate/*'
-    - 'log/**/*'
-    - 'tmp/**/*'
-    - '**/Gemfile'
-    - 'vendor/**/*'
+    - bin/*
+    - Gemfile
 
-Metrics/AbcSize:
-  Max: 26
-
-Metrics/BlockLength:
-  Exclude:
-    - 'test/**/*'
-    - 'app/models/concerns/*'
-    - 'app/controllers/concerns/*'
-
-Metrics/ClassLength:
-  Max: 132
-  Exclude:
-    - 'test/**/*'
-
-Metrics/MethodLength:
-  Max: 17
-
-Rails:
-  Enabled: true
-
-Rails/HasAndBelongsToMany:
-  Enabled: false
-
-Rails/HasManyOrHasOneDependent:
-  Enabled: false
-
-Rails/SaveBang:
-  Enabled: false
-
-Security/YAMLLoad:
-  Enabled: false
-
-Style/AutoResourceCleanup:
-  Enabled: true
-
-Style/BracesAroundHashParameters:
-  EnforcedStyle: context_dependent
-
-Style/CollectionMethods:
-  Enabled: true
-
-Style/Documentation:
-  Enabled: false
-
-Style/ModuleFunction:
-  EnforcedStyle: extend_self
-
-Style/OptionHash:
-  Enabled: true
-
-Style/Send:
-  Enabled: true
-
-Style/SingleLineBlockParams:
-  Enabled: true
-
-Style/StringMethods:
-  Enabled: true
+# Style/StringLiterals:
+#   Exclude:
+#     - config/*.rb
+#     - config/environments/*.rb
+#     - config/initializers/*.rb

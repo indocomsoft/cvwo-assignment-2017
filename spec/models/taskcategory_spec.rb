@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: taskcategories
@@ -14,7 +16,7 @@
 #  index_taskcategories_on_task_id      (task_id)
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Taskcategory, type: :model do
   it { should belong_to(:category) }

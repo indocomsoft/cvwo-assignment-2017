@@ -20,7 +20,7 @@ class CategoriesController < ApplicationController
       redirect_to categories_path
     else
       @category = category
-      flash[:error] = category.errors.full_messages.join(', ')
+      flash[:error] = category.errors.full_messages.join(", ")
       render new_category_path, status: :bad_request
     end
   end
@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
       redirect_to categories_path
     else
       @category = category
-      flash[:error] = category.errors.full_messages.join(', ')
+      flash[:error] = category.errors.full_messages.join(", ")
       render :edit, status: :bad_request
     end
   end
@@ -48,7 +48,7 @@ class CategoriesController < ApplicationController
 
   private
 
-  def category_params
-    params.require(:category).permit(:name, :colour)
-  end
+    def category_params
+      params.require(:category).permit(:name, :colour)
+    end
 end

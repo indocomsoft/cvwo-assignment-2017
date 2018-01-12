@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: tasks
@@ -12,7 +14,7 @@
 #  updated_at  :datetime         not null
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Task, type: :model do
   it { should have_many(:categories).through(:taskcategories) }

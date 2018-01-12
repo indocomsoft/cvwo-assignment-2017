@@ -20,7 +20,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       @task = task
-      flash[:error] = task.errors.full_messages.join(', ')
+      flash[:error] = task.errors.full_messages.join(", ")
       render new_task_path, status: :bad_request
     end
   end
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       @task = task
-      flash[:error] = task.errors.full_messages.join(', ')
+      flash[:error] = task.errors.full_messages.join(", ")
       render :edit, status: :bad_request
     end
   end
@@ -55,32 +55,41 @@ class TasksController < ApplicationController
 
   private
 
-  # Sanitise parameter
-  def task_params
-    params.require(:task).permit(:name, :description, :priority, :done, :due_date)
-  end
+    # Sanitise parameter
+    def task_params
+      params.require(:task).permit(:name, :description, :priority, :done, :due_date)
+    end
 
-  # Extract the column to sort by. Else, priority is the default column sorting mode
-  def sort_column
-    Task.column_names.include?(params[:sort])? params[:sort] : "priority"
-  end
+    # Extract the column to sort by. Else, priority is the default column sorting mode
+    def sort_column
+      if Task.column_names.include?(params[:sort])
+        params[:sort]
+      else
+        "priority"
+      end
+    end
 
-  # Extract the direction to sort by. Else, ascending is the default direction
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
+    # Extract the direction to sort by. Else, ascending is the default direction
+    def sort_direction
+      if %w[asc desc].include?(params[:direction])
+        params[:direction]
+      else
+        "asc"
+      end
+    end
 
-  # Helper to generate table header in view
-  def sortable(column, title = nil)
-    title ||= column.titleize
-    title += "<i class=\"fa fa-sort-#{sort_direction}\"></i>" if column == sort_column
-    direction = if column == sort_column && sort_direction == "asc" 
-                  "desc"
-                else
-                  "asc"
-                end
-    view_context.link_to title.html_safe, {sort: column, direction: direction}
-  end
+    # Helper to generate table header in view
+    def sortable(column, title = nil)
+      title ||= column.titleize
+      title += "<i class=\"fa fa-sort-#{sort_direction}\"></i>" if column == sort_column
+      direction =
+        if column == sort_column && sort_direction == "asc"
+          "desc"
+        else
+          "asc"
+        end
+      view_context.link_to title.html_safe, sort: column, direction: direction
+    end
 
-  helper_method :sortable
+    helper_method :sortable
 end

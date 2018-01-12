@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: categories
@@ -9,7 +11,7 @@
 #  colour     :string
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Category, type: :model do
   it { should have_many(:tasks).through(:taskcategories) }
