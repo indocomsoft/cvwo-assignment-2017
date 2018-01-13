@@ -23,8 +23,8 @@ class Category < ApplicationRecord
     to_rm = existing - input
 
     to_add.each do |t|
-      task = Task.find_or_create_by(name: t)
-      Taskcategory.create(task: task, category: self)
+      task = Task.find_or_create_by!(name: t)
+      Taskcategory.create!(task: task, category: self)
     end
 
     to_rm.each do |t|

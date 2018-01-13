@@ -27,8 +27,8 @@ class Task < ApplicationRecord
     to_rm = existing - input
 
     to_add.each do |c|
-      category = Category.find_or_create_by(name: c)
-      Taskcategory.create(task: self, category: category)
+      category = Category.find_or_create_by!(name: c)
+      Taskcategory.create!(task: self, category: category)
     end
 
     to_rm.each do |c|

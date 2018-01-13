@@ -5,12 +5,8 @@ inherit_gem:
     - config/rails.yml
 
 AllCops:
+  TargetRubyVersion: 2.4
+  TargetRailsVersion: 5.1.4
   Exclude:
     - bin/*
     - Gemfile
-
-# Style/StringLiterals:
-#   Exclude:
-#     - config/*.rb
-#     - config/environments/*.rb
-#     - config/initializers/*.rb
