@@ -2,13 +2,13 @@ function add_alert(msg) {
     var d = new Date();
     var timestamp = d.getTime();
     $("#alerts").append(
-            '<div class="alert alert-warning alert-dismissible fade show inner" role="alert" id="' + timestamp + '">'
+            "<div class=\"alert alert-warning alert-dismissible fade show inner\" role=\"alert" id=\"" + timestamp + "\">"
             + msg
-            + '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
-            + '<span aria-hidden="true">&times;</span>'
-            + '</button>'
-            + '</div>');
-    setTimeout(function() { $("#" + timestamp).alert('close'); }, 3000);
+            + "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">"
+            + "<span aria-hidden=\"true\">&times;</span>"
+            + "</button>"
+            + "</div>");
+    setTimeout(function() { $("#" + timestamp).alert("close"); }, 3000);
 }
 
 function update(id) {
