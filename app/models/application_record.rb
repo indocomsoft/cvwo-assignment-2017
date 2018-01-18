@@ -6,4 +6,8 @@ class ApplicationRecord < ActiveRecord::Base
   def self.names
     self.all.map { |e| e.name }
   end
+
+  def self.search(keyword)
+    self.where("name LIKE ?", "%#{keyword}%")
+  end
 end
