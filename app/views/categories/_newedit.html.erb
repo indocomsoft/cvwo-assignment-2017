@@ -55,6 +55,7 @@ var tasknames = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   prefetch: {
+    cache: false,
     url: '/tasks/all',
     filter: function(list) {
       return $.map(list, function(categoryname) {
