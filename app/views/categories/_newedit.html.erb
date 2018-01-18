@@ -32,7 +32,8 @@
 <% end %>
 <%= render "footer" %>
 <script type="text/javascript">
-$(document).on('turbolinks:load',function(){
+$(document).on('turbolinks:load',() => {
+  'use strict';
   $("#category_colour").hide();
   if (!$("#check-colour")[0].checked) {
     $("#colourpicker").hide();
@@ -43,7 +44,7 @@ $(document).on('turbolinks:load',function(){
     container: true
   });
 });
-$("#check-colour").change(function(){
+$("#check-colour").change(() => {
   if (this.checked) {
     $("#colourpicker").show("slow");
   } else {
@@ -57,11 +58,7 @@ var tasknames = new Bloodhound({
   prefetch: {
     cache: false,
     url: '/tasks/all',
-    filter: function(list) {
-      return $.map(list, function(categoryname) {
-        return { name: categoryname };
-      })
-    }
+    filter: list => $.map(list, categoryname => ({ name: categoryname }))
   }
 });
 $("#task").tagsinput({

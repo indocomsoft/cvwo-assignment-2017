@@ -59,13 +59,12 @@
 <%= render "footer" %>
 <script>
 // Disable form submissions if there are invalid fields
-(function() {
+(() => {
   'use strict';
-
-  window.addEventListener('load', function() {
+  window.addEventListener('load', () => {
     var form = document.getElementById('needs-validation');
-    form.addEventListener('submit', function(event) {
-      if (form.checkValidity() === false) {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
         event.preventDefault();
         event.stopPropagation();
       }
@@ -79,11 +78,7 @@ var categorynames = new Bloodhound({
   prefetch: {
     cache: false,
     url: '/categories/all',
-    filter: function(list) {
-      return $.map(list, function(categoryname) {
-        return { name: categoryname };
-      })
-    }
+    filter: list => $.map(list, categoryname => ({name: categoryname}))
   }
 });
 
