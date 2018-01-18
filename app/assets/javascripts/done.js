@@ -1,24 +1,22 @@
-function add_alert(msg) {
-    var d = new Date();
-    var timestamp = d.getTime();
-    $("#alerts").append(
-            "<div class=\"alert alert-warning alert-dismissible fade show inner\" role=\"alert\" id=\"" + timestamp + "\">"
-            + msg
-            + "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">"
-            + "<span aria-hidden=\"true\">&times;</span>"
-            + "</button>"
-            + "</div>");
-    setTimeout(function() { $("#" + timestamp).alert("close"); }, 3000);
+function addAlert(msg) {
+  const timestamp = new Date().getTime();
+  $('#alerts').append(`<div class="alert alert-warning alert-dismissible fade show inner" role="alert" id="${timestamp}">
+                        ${msg}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                        <span aria-hidden="true">&times;</span>'
+                        </button>'
+                        </div>`);
+  setTimeout(() => { $(`#${timestamp}`).alert('close'); }, 3000);
 }
 
 function update(id) {
-    var value = $("#done-" + id).is(":checked");
-    $.post("/tasks/" + id + "/done", { id, value })
-        .done(function(msg) {
-            add_alert(msg.success ? msg.name + " is " + (value ? "checked." : "unchecked." )
-                                  : "Failed to update " + msg.name + ", please try again.");
-        })
-        .fail(function(xhr, status, error) {
-            add_alert("Connection failed while updating. Please <a href=\"javascript:location.reload()\">refresh</a> the page.");
-        });
+  const value = $(`#done-${id}`).is(':checked');
+  $.post(`/tasks/${id}/done`, { id, value })
+    .done((msg) => {
+      addAlert(msg.success ? `${msg.name} is ${value ? 'checked' : 'unchecked'}.`
+        : `Failed to update ${msg.name}, please try again.`);
+    })
+    .fail(() => {
+      addAlert('Connection failed while updating. Please <a href="javascript:location.reload()">refresh</a> the page.');
+    });
 }
