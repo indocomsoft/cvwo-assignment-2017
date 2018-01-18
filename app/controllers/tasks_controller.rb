@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    render json: Task.all.map { |e| e.name }.to_a if params[:id] == "all"
+    render json: Task.names.to_a if params[:id] == "all"
   end
 
   def new

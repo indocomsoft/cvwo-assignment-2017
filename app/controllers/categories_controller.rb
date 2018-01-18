@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    render json: Category.all.map { |e| e.name }.to_a if params[:id] == "all"
+    render json: Category.names.to_a if params[:id] == "all"
   end
 
   def new
@@ -44,6 +44,10 @@ class CategoriesController < ApplicationController
   def destroy
     category = Category.find params[:id]
     redirect_to categories_path if category.destroy
+  end
+
+  def search
+
   end
 
   private
