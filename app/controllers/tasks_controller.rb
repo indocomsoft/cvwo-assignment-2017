@@ -2,7 +2,12 @@
 
 class TasksController < ApplicationController
   def index
-    @tasks = Task.order(sort_column + " " + sort_direction)
+    if params[:search]
+      @tasks = Task.search(params[:search])
+    else
+      @tasks = Task.all
+    end
+    @tasks = @tasks.order(sort_column + " " + sort_direction)
   end
 
   def show

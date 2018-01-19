@@ -1,7 +1,13 @@
 <%= render "header" %>
 <div class="toolbar">
-  <%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_category_path, class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'New Category' %>
-  <%= link_to '<i class="fa fa-list"></i>'.html_safe, tasks_path, class: 'btn btn-info', data: { toggle: 'tooltip', placement: 'bottom'}, title: 'List Tasks' %>
+  <%= form_tag(categories_path, method: :get, class: 'search-form form-group') do %>
+    <%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_category_path, class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'New Category' %>
+    <%= link_to '<i class="fa fa-list"></i>'.html_safe, tasks_path, class: 'btn btn-info', data: { toggle: 'tooltip', placement: 'bottom'}, title: 'List Tasks' %>
+    <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: "Search tasks" %>
+    <%= button_tag(type: 'submit', class: 'btn btn-default') do %>
+      <i class="fa fa-search"></i>
+    <% end %>
+  <% end %>
 </div>
 <table class="table table-sm table-hover table-bordered">
 <thead class="thead-dark">

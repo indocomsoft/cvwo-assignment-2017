@@ -2,7 +2,11 @@
 
 class CategoriesController < ApplicationController
   def index
-    @categories = Category.all.sort
+    if params[:search]
+      @categories = Category.search(params[:search])
+    else
+      @categories = Category.all.sort
+    end
   end
 
   def show

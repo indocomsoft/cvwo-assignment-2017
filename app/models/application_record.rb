@@ -8,6 +8,6 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def self.search(keyword)
-    self.where("name LIKE ?", "%#{keyword}%")
+    self.where("name ILIKE ?", "%#{keyword}%")
   end
 end

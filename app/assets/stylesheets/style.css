@@ -11,8 +11,8 @@
 .fa { display:inline; }
 
 .alerts {
-  position: fixed; 
-  top: 0; 
+  position: fixed;
+  top: 0;
   width: 50%;
   left: 0;
   right: 0;
@@ -61,4 +61,19 @@ td.name {
 a.taglink {
   text-decoration: none;
   color: inherit;
+}
+
+.search-form *:not(:last-child) {
+  margin-right: 5px;
+}
+
+form.search-form {
+  display: flex;
+  width: 100%;
+}
+
+.search-form input {
+  display: inline;
+  flex-grow: 100;
+  vertical-align: middle;
 }
