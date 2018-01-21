@@ -10,6 +10,7 @@ class TasksController < ApplicationController
     @tasks = @tasks.order(sort_column + " " + sort_direction)
   end
 
+  # For show AJAX call
   def show
     render json: Task.names.to_a if params[:id] == "all"
   end
@@ -65,7 +66,8 @@ class TasksController < ApplicationController
       params.require(:task).permit(:name, :description, :priority, :done, :due_date)
     end
 
-    # Extract the column to sort by. Else, priority is the default column sorting mode
+    # Extract the column to sort by, while also sanitising the input
+    # Else, priority is the default column sorting mode
     def sort_column
       if Task.column_names.include?(params[:sort])
         params[:sort]
@@ -74,7 +76,8 @@ class TasksController < ApplicationController
       end
     end
 
-    # Extract the direction to sort by. Else, ascending is the default direction
+    # Extract the direction to sort by, while also sanitising the input
+    # Else, ascending is the default direction
     def sort_direction
       if %w[asc desc].include?(params[:direction])
         params[:direction]
