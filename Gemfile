@@ -72,4 +72,6 @@ gem 'font-awesome-sass'
 # Support for coveralls
 gem 'coveralls', require: false
 
+gem 'bcrypt'
+
 ruby "2.4.1"
