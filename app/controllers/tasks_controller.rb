@@ -3,25 +3,25 @@
 class TasksController < ApplicationController
   def index
     if params[:search]
-      @tasks = Task.search(params[:search])
+      @tasks = current_user.tasks.search(params[:search])
     else
-      @tasks = Task.all
+      @tasks = current_user.tasks.all
     end
     @tasks = @tasks.order(sort_column + " " + sort_direction)
   end
 
   # For show AJAX call
   def show
-    render json: Task.names.to_a if params[:id] == "all"
+    render json: current_user.tasks.names.to_a if params[:id] == "all"
   end
 
   def new
-    @task = Task.new
+    @task = current_user.tasks.new
   end
 
   def create
-    task = Task.new task_params
-    task.assign_categories(params[:category])
+    task = current_user.tasks.new task_params
+    task.assign_categories(params[:category], current_user)
     if task.save
       redirect_to tasks_path
     else
@@ -32,12 +32,12 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find params[:id]
+    @task = current_user.tasks.find params[:id]
   end
 
   def update
-    task = Task.find params[:id]
-    task.assign_categories(params[:category])
+    task = current_user.tasks.find params[:id]
+    task.assign_categories(params[:category], current_user)
     if task.update task_params
       redirect_to tasks_path
     else
@@ -48,12 +48,12 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    task = Task.find params[:id]
+    task = current_user.tasks.find params[:id]
     redirect_to tasks_path if task.destroy
   end
 
   def done
-    task = Task.find params[:id]
+    task = current_user.tasks.find params[:id]
     task.done = params[:value]
     status = task.save
     render json: { success: status, name: task.name, value: params[:value] }
@@ -69,7 +69,7 @@ class TasksController < ApplicationController
     # Extract the column to sort by, while also sanitising the input
     # Else, priority is the default column sorting mode
     def sort_column
-      if Task.column_names.include?(params[:sort])
+      if current_user.tasks.column_names.include?(params[:sort])
         params[:sort]
       else
         "priority"

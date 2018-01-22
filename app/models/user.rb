@@ -22,4 +22,7 @@ class User < ApplicationRecord
   validates :email, uniqueness: { case_sensitive: false }, presence: true, format: { with: VALID_EMAIL_REGEX, on: :create }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
+
+  has_many :tasks
+  has_many :categories
 end

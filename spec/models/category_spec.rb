@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: categories
@@ -9,6 +8,11 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  colour     :string
+#  user_id    :integer
+#
+# Indexes
+#
+#  index_categories_on_user_id  (user_id)
 #
 
 require "rails_helper"
@@ -18,9 +22,10 @@ RSpec.describe Category, type: :model do
   it { should validate_uniqueness_of(:name).ignoring_case_sensitivity.with_message(" ") }
   context "search" do
     before(:each) do
-      @cat1 = Category.create(name: "qwerty")
-      @cat2 = Category.create(name: "asdfghjkl")
-      @cat3 = Category.create(name: "asdf")
+      @user = User.create(email: "test@example.com", password: "123456")
+      @cat1 = Category.create(name: "qwerty", user: @user)
+      @cat2 = Category.create(name: "asdfghjkl", user: @user)
+      @cat3 = Category.create(name: "asdf", user: @user)
     end
     it "finds one result" do
       result = Category.search("sdf")

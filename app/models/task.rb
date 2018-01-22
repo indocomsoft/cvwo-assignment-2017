@@ -17,22 +17,23 @@
 class Task < ApplicationRecord
   has_many :taskcategories
   has_many :categories, through: :taskcategories
+  belongs_to :user
   validates :name, uniqueness: true
   validates :priority, numericality: { only_integer: true, greater_than: 0, less_than: 11, message: "must be between 1 and 10 inclusive." }
 
-  def assign_categories(input_categories)
+  def assign_categories(input_categories, user)
     existing = categories.all.map { |c| c.name }
     input = input_categories.split(",")
     to_add = input - existing
     to_rm = existing - input
 
     to_add.each do |c|
-      category = Category.find_or_create_by!(name: c)
+      category = user.categories.find_or_create_by!(name: c)
       Taskcategory.create!(task: self, category: category)
     end
 
     to_rm.each do |c|
-      category = Category.find_by(name: c)
+      category = user.categories.find_by(name: c)
       Taskcategory.find_by(task: self, category: category).destroy
     end
   end
