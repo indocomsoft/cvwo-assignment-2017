@@ -2,9 +2,9 @@ function addAlert(msg) {
   const timestamp = new Date().getTime();
   $('#alerts').append(`<div class="alert alert-warning alert-dismissible fade show inner" role="alert" id="${timestamp}">
                         ${msg}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">'
-                        <span aria-hidden="true">&times;</span>'
-                        </button>'
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
                         </div>`);
   setTimeout(() => { $(`#${timestamp}`).alert('close'); }, 3000);
 }
