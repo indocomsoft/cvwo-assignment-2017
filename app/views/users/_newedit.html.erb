@@ -1,23 +1,26 @@
 <%= render "header" %>
-<div id="alerts" class="alerts">
-</div>
+<% if flash[:error] %>
+  <div class="alert alert-danger" role="alert">
+    Error: <%= flash[:error] %>
+  </div>
+<% end %>
 <%= form_for @user, html: { id: "needs-validation", novalidate: "novalidate" } do |u| %>
   <div class="form-group">
-    <%= u.label :username %>
-    <%= u.text_field :name, class: 'form-control', required: true %>
-    <div class="invalid-feedback">
-      Please enter a username.
-    </div>
+    <%= u.label :email %>
+    <%= u.text_field :email, class: 'form-control', placeholder: 'john@smith.com', required: true %>
   </div>
   <div class="form-group">
     <%= u.label :name %>
     <%= u.text_field :name, class: 'form-control', placeholder: 'John Smith' %>
   </div>
   <div class="form-group">
-    <%= u.label :email %>
-    <%= u.text_field :email, class: 'form-control', placeholder: 'john@smith.com', required: true %>
+    <%= u.label :password %>
+    <%= u.password_field :password, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= u.label :password_confirmation %>
+    <%= u.password_field :password_confirmation, class: 'form-control' %>
   </div>
   <%= u.submit "Sign up", class: 'btn btn-primary' %>
 <% end %>
 <%= render "footer" %>
-
