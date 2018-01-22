@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: tasks
@@ -12,6 +11,11 @@
 #  done        :boolean          default(FALSE), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  user_id     :integer
+#
+# Indexes
+#
+#  index_tasks_on_user_id  (user_id)
 #
 
 require "rails_helper"
@@ -25,9 +29,10 @@ RSpec.describe Task, type: :model do
         is_greater_than(0) }
   context "search" do
     before(:each) do
-      @task1 = Task.create(name: "qwerty", priority: 1)
-      @task2 = Task.create(name: "asdfghjkl", priority: 2)
-      @task3 = Task.create(name: "asdf", priority: 3)
+      @user = User.create(email: "test@example.com", password: "123456")
+      @task1 = Task.create(name: "qwerty", priority: 1, user: @user)
+      @task2 = Task.create(name: "asdfghjkl", priority: 2, user: @user)
+      @task3 = Task.create(name: "asdf", priority: 3, user: @user)
     end
     it "finds one result" do
       result = Task.search("sdf")

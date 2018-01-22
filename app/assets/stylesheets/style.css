@@ -24,7 +24,7 @@
   margin: 5px;
 }
 
-td.name {
+.name {
   text-align: left;
 }
 
@@ -58,7 +58,7 @@ td.name {
   padding: 0.1em 0.5em;
 }
 
-a.taglink {
+.taglink {
   text-decoration: none;
   color: inherit;
 }
@@ -76,4 +76,8 @@ form.search-form {
   display: inline;
   flex-grow: 100;
   vertical-align: middle;
+}
+
+.user {
+  float: right;
 }

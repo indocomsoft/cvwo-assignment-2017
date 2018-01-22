@@ -1,2 +1,35 @@
 <div class="container">
-  <h1><%= link_to title, link %> | MyToDo</h1>
+  <h1>
+  <% if link.empty? %>
+    <%= title %> | MyToDo
+  <% else %>
+    <%= link_to title, link %> | MyToDo
+  <% end %>
+
+  <% if logged_in? %>
+    <span class="dropdown user">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="userMenuButton" data-toggle="dropdown">
+        <% if current_user.name.nil? || current_user.name.empty? %>
+          <%= current_user.email %>
+        <% else %>
+          <%= current_user.name %>
+        <% end %>
+      </button>
+      <div class="dropdown-menu">
+        <%= link_to "Profile", current_user, class: "dropdown-item" %>
+        <%= link_to "Logout", logout_path, method: :delete, class: "dropdown-item" %>
+      </div>
+    </span>
+  <% end %>
+</h1>
+
+<div id="alerts" class="alerts">
+</div>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %> alert-dismissible fade show" role="alert">
+    <%= value %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>

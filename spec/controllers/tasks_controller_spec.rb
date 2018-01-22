@@ -3,33 +3,46 @@
 require "rails_helper"
 
 RSpec.describe TasksController, type: :controller do
+  before(:each) do
+    @user = User.create(email: "test@example.com", password: "123456")
+    request.session[:user_id] = @user.id
+  end
+
   describe "GET #index" do
-    before(:each) { get :index }
-    it { should respond_with :ok }
-    it { should render_template "index" }
+    context "logged in" do
+      before(:each) { get :index }
+      it { should respond_with :ok }
+      it { should render_template "index" }
+    end
     context "search" do
       before(:each) do
-        @task1 = Task.create(name: "qwertyuiop", priority: 1)
-        @task2 = Task.create(name: "asdfghjkl", priority: 2)
-        @task3 = Task.create(name: "asdf", priority: 3)
+        @task1 = @user.tasks.create(name: "qwertyuiop", priority: 1)
+        @task2 = @user.tasks.create(name: "asdfghjkl", priority: 2)
+        @task3 = @user.tasks.create(name: "asdf", priority: 3)
         get :index, params: { search: "sdf" }
       end
       it { should render_template "index" }
       it { should respond_with :ok }
       it { expect(assigns(:tasks)).to eq([@task2, @task3]) }
     end
-
+    context "unauthenticated" do
+      before(:each) do
+        request.session.delete(:user_id)
+        get :index
+      end
+      it { should redirect_to login_path }
+    end
   end
 
   describe "GET #show" do
     before(:each) do
-      @task = Task.create(name: "Test1", priority: 1)
-      @task2 = Task.create(name: "Test2", priority: 7)
+      @task = @user.tasks.create(name: "Test1", priority: 1)
+      @task2 = @user.tasks.create(name: "Test2", priority: 7)
     end
     context "tasks/all" do
       before(:each) { get :show, params: { id: "all" }, format: :json }
       it { should respond_with :ok }
-      it { expect(response.body).to eq(Task.all.map { |e| e.name }.to_a.to_json) }
+      it { expect(response.body).to eq(@user.tasks.all.map { |e| e.name }.to_a.to_json) }
     end
 
     context "else" do
@@ -61,78 +74,78 @@ RSpec.describe TasksController, type: :controller do
       context "given one new category" do
         before(:each) { post :create, params: { task: { name: "Test", priority: 1 }, category: "asd" } }
         it { should redirect_to tasks_path }
-        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
-          expect(Category.find_by(name: "asd").tasks.count).to eq(1)
+        it 'should result in @user.categories.find_by(name: "asd").tasks.count to eq 1' do
+          expect(@user.categories.find_by(name: "asd").tasks.count).to eq(1)
         end
-        it 'should result in Task.find_by(name:"test").categories.count to eq 1' do
-          expect(Task.find_by(name: "Test").categories.count).to eq(1)
+        it 'should result in @user.tasks.find_by(name:"test").categories.count to eq 1' do
+          expect(@user.tasks.find_by(name: "Test").categories.count).to eq(1)
         end
       end
 
       context "given multiple new categories" do
         before(:each) { post :create, params: { task: { name: "Test", priority: 1 }, category: "asd,anu" } }
         it { should redirect_to tasks_path }
-        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
-          expect(Category.find_by(name: "asd").tasks.count).to eq(1)
+        it 'should result in @user.categories.find_by(name: "asd").tasks.count to eq 1' do
+          expect(@user.categories.find_by(name: "asd").tasks.count).to eq(1)
         end
-        it 'should result in Category.find_by(name: "anu").tasks.count to eq 1' do
-          expect(Category.find_by(name: "anu").tasks.count).to eq(1)
+        it 'should result in @user.categories.find_by(name: "anu").tasks.count to eq 1' do
+          expect(@user.categories.find_by(name: "anu").tasks.count).to eq(1)
         end
-        it 'should result in Task.find_by(name:"test").categories.count to eq 2' do
-          expect(Task.find_by(name: "Test").categories.count).to eq(2)
+        it 'should result in @user.tasks.find_by(name:"test").categories.count to eq 2' do
+          expect(@user.tasks.find_by(name: "Test").categories.count).to eq(2)
         end
       end
 
       context "given a mix of new and existing, unassociated categories" do
         before(:each) do
-          @category = Category.create(name: "anu")
+          @category = @user.categories.create(name: "anu")
           post :create, params: { task: { name: "Test", priority: 1 }, category: "asd,anu" }
         end
         it { should redirect_to tasks_path }
-        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
-          expect(Category.find_by(name: "asd").tasks.count).to eq(1)
+        it 'should result in @user.categories.find_by(name: "asd").tasks.count to eq 1' do
+          expect(@user.categories.find_by(name: "asd").tasks.count).to eq(1)
         end
-        it 'should result in Category.find_by(name: "anu").tasks.count to eq 1' do
-          expect(Category.find_by(name: "anu").tasks.count).to eq(1)
+        it 'should result in @user.categories.find_by(name: "anu").tasks.count to eq 1' do
+          expect(@user.categories.find_by(name: "anu").tasks.count).to eq(1)
         end
-        it 'should result in Task.find_by(name:"test").categories.count to eq 2' do
-          expect(Task.find_by(name: "Test").categories.count).to eq(2)
+        it 'should result in @user.tasks.find_by(name:"test").categories.count to eq 2' do
+          expect(@user.tasks.find_by(name: "Test").categories.count).to eq(2)
         end
       end
 
       context "given a mix of new and existing, already associated categories" do
         before(:each) do
-          @category = Category.create(name: "anu")
-          @task = Task.create(name: "ExistingTask", priority: 1)
+          @category = @user.categories.create(name: "anu")
+          @task = @user.tasks.create(name: "ExistingTask", priority: 1)
           Taskcategory.create(task: @task, category: @category)
           post :create, params: { task: { name: "Test", priority: 1 }, category: "asd,anu" }
         end
         it { should redirect_to tasks_path }
-        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
-          expect(Category.find_by(name: "asd").tasks.count).to eq(1)
+        it 'should result in @user.categories.find_by(name: "asd").tasks.count to eq 1' do
+          expect(@user.categories.find_by(name: "asd").tasks.count).to eq(1)
         end
-        it 'should result in Category.find_by(name: "anu").tasks.count to eq 2' do
-          expect(Category.find_by(name: "anu").tasks.count).to eq(2)
+        it 'should result in @user.categories.find_by(name: "anu").tasks.count to eq 2' do
+          expect(@user.categories.find_by(name: "anu").tasks.count).to eq(2)
         end
         it "should result in existing task to still be associated to existing category" do
           expect(@task.categories.first.name).to eq("anu")
         end
-        it 'should result in Task.find_by(name:"test").categories.count to eq 2' do
-          expect(Task.find_by(name: "Test").categories.count).to eq(2)
+        it 'should result in @user.tasks.find_by(name:"test").categories.count to eq 2' do
+          expect(@user.tasks.find_by(name: "Test").categories.count).to eq(2)
         end
       end
 
       context "given existing category" do
         before(:each) do
-          @category = Category.create(name: "asd")
+          @category = @user.categories.create(name: "asd")
           post :create, params: { task: { name: "Test", priority: 1 }, category: "asd" }
         end
         it { should redirect_to tasks_path }
-        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
-          expect(Category.find_by(name: "asd").tasks.count).to eq(1)
+        it 'should result in @user.categories.find_by(name: "asd").tasks.count to eq 1' do
+          expect(@user.categories.find_by(name: "asd").tasks.count).to eq(1)
         end
-        it 'should result in Task.find_by(name:"test").categories.count to eq 1' do
-          expect(Task.find_by(name: "Test").categories.count).to eq(1)
+        it 'should result in @user.tasks.find_by(name:"test").categories.count to eq 1' do
+          expect(@user.tasks.find_by(name: "Test").categories.count).to eq(1)
         end
       end
     end
@@ -147,7 +160,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe "GET #edit" do
-    before(:each) { @task = Task.create(name: "Test", priority: 1) }
+    before(:each) { @task = @user.tasks.create(name: "Test", priority: 1) }
 
     context "given valid id" do
       before(:each) { get :edit, params: { id: @task.id } }
@@ -166,7 +179,7 @@ RSpec.describe TasksController, type: :controller do
 
   describe "POST #update" do
     context "given task with no category" do
-      before(:each) { @task = Task.create(name: "Test", priority: 1) }
+      before(:each) { @task = @user.tasks.create(name: "Test", priority: 1) }
       context "given invalid priority" do
         before(:each) { post :update, params: { id: @task.id, task: { name: "Test", priority: 0 }, category: "" } }
         it { should respond_with :bad_request }
@@ -177,11 +190,11 @@ RSpec.describe TasksController, type: :controller do
           post :update, params: { id: @task.id, task: { name: "Test", priority: 1 }, category: "asd" }
         end
         it { should redirect_to tasks_path }
-        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
-          expect(Category.find_by(name: "asd").tasks.count).to eq(1)
+        it 'should result in @user.categories.find_by(name: "asd").tasks.count to eq 1' do
+          expect(@user.categories.find_by(name: "asd").tasks.count).to eq(1)
         end
-        it 'should result in Task.find_by(name:"test").categories.count to eq 1' do
-          expect(Task.find_by(name: "Test").categories.count).to eq(1)
+        it 'should result in @user.tasks.find_by(name:"test").categories.count to eq 1' do
+          expect(@user.tasks.find_by(name: "Test").categories.count).to eq(1)
         end
       end
       context "given multiple new categories" do
@@ -189,19 +202,19 @@ RSpec.describe TasksController, type: :controller do
           post :update, params: { id: @task.id, task: { name: "Test", priority: 1 }, category: "asd,anu" }
         end
         it { should redirect_to tasks_path }
-        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
-          expect(Category.find_by(name: "asd").tasks.count).to eq(1)
+        it 'should result in @user.categories.find_by(name: "asd").tasks.count to eq 1' do
+          expect(@user.categories.find_by(name: "asd").tasks.count).to eq(1)
         end
-        it 'should result in Category.find_by(name: "anu").tasks.count to eq 1' do
-          expect(Category.find_by(name: "asd").tasks.count).to eq(1)
+        it 'should result in @user.categories.find_by(name: "anu").tasks.count to eq 1' do
+          expect(@user.categories.find_by(name: "asd").tasks.count).to eq(1)
         end
-        it 'should result in Task.find_by(name:"test").categories.count to eq 2' do
-          expect(Task.find_by(name: "Test").categories.count).to eq(2)
+        it 'should result in @user.tasks.find_by(name:"test").categories.count to eq 2' do
+          expect(@user.tasks.find_by(name: "Test").categories.count).to eq(2)
         end
       end
       context "given addition of one existing category" do
         before(:each) do
-          @category = Category.create(name: "asd")
+          @category = @user.categories.create(name: "asd")
         end
         it do
           post :update, params: { id: @task.id, task: { name: "Test", priority: 1 }, category: "asd" }
@@ -216,7 +229,7 @@ RSpec.describe TasksController, type: :controller do
       end
       context "given addition of one new and one existing categories" do
         before(:each) do
-          @category = Category.create(name: "asd")
+          @category = @user.categories.create(name: "asd")
         end
         it do
           post :update, params: { id: @task.id, task: { name: "Test", priority: 1 }, category: "asd,anu" }
@@ -224,7 +237,7 @@ RSpec.describe TasksController, type: :controller do
         end
         it do
           post :update, params: { id: @task.id, task: { name: "Test", priority: 1 }, category: "asd,anu" }
-          expect(Category.find_by(name: "anu").tasks.count).to eq(1)
+          expect(@user.categories.find_by(name: "anu").tasks.count).to eq(1)
         end
         it do
           expect {
@@ -236,8 +249,8 @@ RSpec.describe TasksController, type: :controller do
     end
     context "given task with one category" do
       before(:each) do
-        @task = Task.create(name: "Test", priority: 1)
-        @category = Category.create(name: "anu")
+        @task = @user.tasks.create(name: "Test", priority: 1)
+        @category = @user.categories.create(name: "anu")
         Taskcategory.create(task: @task, category: @category)
       end
       context "given invalid priority" do
@@ -264,9 +277,9 @@ RSpec.describe TasksController, type: :controller do
           post :update, params: { id: @task.id, task: { name: "Test", priority: 1 }, category: "anu,asd" }
           should redirect_to tasks_path
         end
-        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
+        it 'should result in @user.categories.find_by(name: "asd").tasks.count to eq 1' do
           post :update, params: { id: @task.id, task: { name: "Test", priority: 1 }, category: "anu,asd" }
-          expect(Category.find_by(name: "asd").tasks.count).to eq(1)
+          expect(@user.categories.find_by(name: "asd").tasks.count).to eq(1)
         end
         it do
           expect {
@@ -280,13 +293,13 @@ RSpec.describe TasksController, type: :controller do
           post :update, params: { id: @task.id, task: { name: "Test", priority: 1 }, category: "anu,abc,asd" }
           should redirect_to tasks_path
         end
-        it 'should result in Category.find_by(name: "asd").tasks.count to eq 1' do
+        it 'should result in @user.categories.find_by(name: "asd").tasks.count to eq 1' do
           post :update, params: { id: @task.id, task: { name: "Test", priority: 1 }, category: "anu,abc,asd" }
-          expect(Category.find_by(name: "asd").tasks.count).to eq(1)
+          expect(@user.categories.find_by(name: "asd").tasks.count).to eq(1)
         end
-        it 'should result in Category.find_by(name: "abc").tasks.count to eq 1' do
+        it 'should result in @user.categories.find_by(name: "abc").tasks.count to eq 1' do
           post :update, params: { id: @task.id, task: { name: "Test", priority: 1 }, category: "anu,abc,asd" }
-          expect(Category.find_by(name: "abc").tasks.count).to eq(1)
+          expect(@user.categories.find_by(name: "abc").tasks.count).to eq(1)
         end
         it do
           expect {
@@ -297,7 +310,7 @@ RSpec.describe TasksController, type: :controller do
       end
       context "given addition of one existing category" do
         before(:each) do
-          @cat2 = Category.create(name: "asd")
+          @cat2 = @user.categories.create(name: "asd")
         end
         it do
           post :update, params: { id: @task.id, task: { name: "Test", priority: 1 }, category: "anu,asd" }
@@ -317,10 +330,10 @@ RSpec.describe TasksController, type: :controller do
     end
     context "given task with multiple categories" do
       before(:each) do
-        @task = Task.create(name: "Test", priority: 1)
-        @cat1 = Category.create(name: "anu")
-        @cat2 = Category.create(name: "asd")
-        @cat3 = Category.create(name: "qwe")
+        @task = @user.tasks.create(name: "Test", priority: 1)
+        @cat1 = @user.categories.create(name: "anu")
+        @cat2 = @user.categories.create(name: "asd")
+        @cat3 = @user.categories.create(name: "qwe")
         Taskcategory.create(task: @task, category: @cat1)
         Taskcategory.create(task: @task, category: @cat2)
         Taskcategory.create(task: @task, category: @cat3)
@@ -357,11 +370,11 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    before(:each) { @task = Task.create(name: "Test", priority: 1) }
+    before(:each) { @task = @user.tasks.create(name: "Test", priority: 1) }
     it do
       expect {
         delete :destroy, params: { id: @task.id }
-      }.to change { Task.count }.by(-1)
+      }.to change { @user.tasks.count }.by(-1)
     end
     it do
       delete :destroy, params: { id: @task.id }
@@ -370,7 +383,7 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe "POST #done" do
-    before(:each) { @task = Task.create(name: "Test", priority: 1) }
+    before(:each) { @task = @user.tasks.create(name: "Test", priority: 1) }
     context "given valid id" do
       before { post :done, params: { id: @task.id, value: true } }
       it { should respond_with :ok }

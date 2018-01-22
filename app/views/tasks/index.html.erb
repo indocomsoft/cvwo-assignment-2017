@@ -1,6 +1,4 @@
 <%= render "header" %>
-<div id="alerts" class="alerts">
-</div>
 <div class="toolbar">
   <%= form_tag(tasks_path, method: :get, class: 'search-form form-group') do %>
     <%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_task_path, class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'New Task' %>
