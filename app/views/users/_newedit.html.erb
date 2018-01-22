@@ -1,4 +1,4 @@
-<%= render "header" %>
+<%= render "header", title: "Sign Up" %>
 <%= form_for @user, html: { id: "needs-validation", novalidate: "novalidate" } do |u| %>
   <div class="form-group">
     <%= u.label :email %>

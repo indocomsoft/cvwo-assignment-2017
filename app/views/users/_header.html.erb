@@ -1,2 +1,4 @@
-<%= render "shared/header", title: "Sign up", link: "" %>
-
+<%= render "shared/header", title: title, link: "" %>
+<div class="toolbar">
+  <%= link_to '<i class="fa fa-chevron-left" aria-hidden="true"></i>'.html_safe, 'javascript:history.back()', class: 'btn btn-primary', title: 'Back', data: { toggle: 'tooltip', placement: 'bottom' } %>
+</div>

@@ -23,7 +23,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "GET #new" do
-    before { get :new }
+    before(:each) { get :new }
     it { should render_template "new" }
     it { should respond_with :ok }
   end
@@ -50,4 +50,48 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  describe "GET #edit" do
+    before(:each) do
+      @user = User.create(email: "anu@abc.com", password: "123456")
+      request.session[:user_id] = @user.id
+    end
+    context "details" do
+      before(:each) { get :edit, params: { id: "unknown", change: "details" } }
+      it { should render_template "edit" }
+      it { should respond_with :ok }
+    end
+    context "password" do
+      before(:each) { get :edit, params: { id: "unknown", change: "password" } }
+      it { should render_template "edit" }
+      it { should respond_with :ok }
+    end
+  end
+
+  describe "POST #update" do
+    context "details" do
+      before(:each) do
+        @user = User.create(email: "anu@abc.com", password: "123456")
+        request.session[:user_id] = @user.id
+        post :update, params: { id: @user.id, change: "details", user: { name: "asd" } }
+      end
+      it { should redirect_to user_path(@user) }
+    end
+    context "password" do
+      before(:each) do
+        @user = User.create(email: "anu@abc.com", password: "123456")
+        request.session[:user_id] = @user.id
+        post :update, params: { id: @user.id, change: "password", user: { current_password: "123456", password: "asdfgh", password_confirmation: "asdfgh" } }
+      end
+      it { should redirect_to user_path(@user) }
+    end
+    context "wrong password" do
+      before(:each) do
+        @user = User.create(email: "anu@abc.com", password: "123456")
+        request.session[:user_id] = @user.id
+        post :update, params: { id: @user.id, change: "password", user: { current_password: "12346", password: "asdfgh", password_confirmation: "asdfgh" } }
+      end
+      it { should render_template "edit" }
+      it { should respond_with :bad_request }
+    end
+  end
 end
