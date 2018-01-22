@@ -77,3 +77,7 @@ form.search-form {
   flex-grow: 100;
   vertical-align: middle;
 }
+
+.user {
+  float: right;
+}

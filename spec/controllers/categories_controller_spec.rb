@@ -3,10 +3,17 @@
 require "rails_helper"
 
 RSpec.describe CategoriesController, type: :controller do
+  before(:each) do
+    @user = User.create(email: "test@example.com", password: "123456")
+    request.session[:user_id] = @user.id
+  end
+
   describe "GET #index" do
-    before { get :index }
-    it { should render_template "index" }
-    it { should respond_with :ok }
+    context "logged in" do
+      before(:each) { get :index }
+      it { should render_template "index" }
+      it { should respond_with :ok }
+    end
     context "search" do
       before(:each) do
         @cat1 = Category.create(name: "qwertyuiop")
@@ -17,6 +24,13 @@ RSpec.describe CategoriesController, type: :controller do
       it { should render_template "index" }
       it { should respond_with :ok }
       it { expect(assigns(:categories)).to eq([@cat2, @cat3]) }
+    end
+    context "unauthenticated" do
+      before(:each) do
+        request.session.delete(:user_id)
+        get :index
+      end
+      it { should redirect_to login_path }
     end
   end
 

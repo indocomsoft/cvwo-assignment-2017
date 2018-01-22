@@ -1,3 +1,13 @@
 <%= render "shared/header", title: "Login", link: "" %>
-
+<%= form_for(:session, url: login_path) do |u| %>
+  <div class="form-group">
+    <%= u.label :email %>
+    <%= u.text_field :email, class:"form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <%= u.label :password %>
+    <%= u.password_field :password, class:"form-control", required: true %>
+  </div>
+  <%= u.submit "Log in", class:"btn btn-primary" %>
+<% end %>
 <%= render "shared/footer" %>

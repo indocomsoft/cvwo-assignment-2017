@@ -1,9 +1,4 @@
 <%= render "header" %>
-<% if flash[:error] %>
-  <div class="alert alert-danger" role="alert">
-    Error: <%= flash[:error] %>
-  </div>
-<% end %>
 <%= form_for @user, html: { id: "needs-validation", novalidate: "novalidate" } do |u| %>
   <div class="form-group">
     <%= u.label :email %>

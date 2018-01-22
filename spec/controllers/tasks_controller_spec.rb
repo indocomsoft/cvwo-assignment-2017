@@ -3,10 +3,17 @@
 require "rails_helper"
 
 RSpec.describe TasksController, type: :controller do
+  before(:each) do
+    @user = User.create(email: "test@example.com", password: "123456")
+    request.session[:user_id] = @user.id
+  end
+
   describe "GET #index" do
-    before(:each) { get :index }
-    it { should respond_with :ok }
-    it { should render_template "index" }
+    context "logged in" do
+      before(:each) { get :index }
+      it { should respond_with :ok }
+      it { should render_template "index" }
+    end
     context "search" do
       before(:each) do
         @task1 = Task.create(name: "qwertyuiop", priority: 1)
@@ -18,7 +25,13 @@ RSpec.describe TasksController, type: :controller do
       it { should respond_with :ok }
       it { expect(assigns(:tasks)).to eq([@task2, @task3]) }
     end
-
+    context "unauthenticated" do
+      before(:each) do
+        request.session.delete(:user_id)
+        get :index
+      end
+      it { should redirect_to login_path }
+    end
   end
 
   describe "GET #show" do
