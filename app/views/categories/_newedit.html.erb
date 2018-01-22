@@ -28,7 +28,6 @@
 <%= render "footer" %>
 <script type="text/javascript">
 $(document).on('turbolinks:load',() => {
-  'use strict';
   $("#category_colour").hide();
   if (!$("#check-colour")[0].checked) {
     $("#colourpicker").hide();
@@ -39,7 +38,7 @@ $(document).on('turbolinks:load',() => {
     container: true
   });
 });
-$("#check-colour").change(() => {
+$("#check-colour").change(function() {
   if (this.checked) {
     $("#colourpicker").show("slow");
   } else {
