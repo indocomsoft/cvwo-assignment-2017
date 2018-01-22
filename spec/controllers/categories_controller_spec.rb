@@ -7,6 +7,17 @@ RSpec.describe CategoriesController, type: :controller do
     before { get :index }
     it { should render_template "index" }
     it { should respond_with :ok }
+    context "search" do
+      before(:each) do
+        @cat1 = Category.create(name: "qwertyuiop")
+        @cat2 = Category.create(name: "asdfghjkl")
+        @cat3 = Category.create(name: "asdf")
+        get :index, params: { search: "sdf" }
+      end
+      it { should render_template "index" }
+      it { should respond_with :ok }
+      it { expect(assigns(:categories)).to eq([@cat2, @cat3]) }
+    end
   end
 
   describe "GET #show" do

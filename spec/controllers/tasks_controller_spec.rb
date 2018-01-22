@@ -7,6 +7,18 @@ RSpec.describe TasksController, type: :controller do
     before(:each) { get :index }
     it { should respond_with :ok }
     it { should render_template "index" }
+    context "search" do
+      before(:each) do
+        @task1 = Task.create(name: "qwertyuiop", priority: 1)
+        @task2 = Task.create(name: "asdfghjkl", priority: 2)
+        @task3 = Task.create(name: "asdf", priority: 3)
+        get :index, params: { search: "sdf" }
+      end
+      it { should render_template "index" }
+      it { should respond_with :ok }
+      it { expect(assigns(:tasks)).to eq([@task2, @task3]) }
+    end
+
   end
 
   describe "GET #show" do
@@ -373,4 +385,39 @@ RSpec.describe TasksController, type: :controller do
       end
     end
   end
+
+  describe "#sortable" do
+    context "no param" do
+      it "works for priority" do
+        expect(subject.send(:sortable, "priority", "#")).to eq(["#<i class=\"fa fa-sort-asc\"></i>".html_safe, sort: "priority", direction: "desc"])
+      end
+      it "works for name" do
+        expect(subject.send(:sortable, "name", "Tasks")).to eq(["Tasks".html_safe, sort: "name", direction: "asc"])
+      end
+      it "works for due_date" do
+        expect(subject.send(:sortable, "due_date")).to eq(["Due Date".html_safe, sort: "due_date", direction: "asc"])
+      end
+      it "works for done" do
+        expect(subject.send(:sortable, "done")).to eq(["Done".html_safe, sort: "done", direction: "asc"])
+      end
+    end
+    context "by name desc" do
+      before(:each) do
+        allow(subject).to receive(:params).and_return(sort: "name", direction: "desc")
+      end
+      it "works for priority" do
+        expect(subject.send(:sortable, "priority", "#")).to eq(["#".html_safe, sort: "priority", direction: "asc"])
+      end
+      it "works for name" do
+        expect(subject.send(:sortable, "name", "Tasks")).to eq(["Tasks<i class=\"fa fa-sort-desc\"></i>".html_safe, sort: "name", direction: "asc"])
+      end
+      it "works for due_date" do
+        expect(subject.send(:sortable, "due_date")).to eq(["Due Date".html_safe, sort: "due_date", direction: "asc"])
+      end
+      it "works for done" do
+        expect(subject.send(:sortable, "done")).to eq(["Done".html_safe, sort: "done", direction: "asc"])
+      end
+    end
+  end
+
 end

@@ -4,7 +4,7 @@ class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
   def self.names
-    self.all.map { |e| e.name }
+    self.all.map(&:name)
   end
 
   def self.search(keyword)

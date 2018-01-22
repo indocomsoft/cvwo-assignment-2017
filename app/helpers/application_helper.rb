@@ -21,4 +21,8 @@ module ApplicationHelper
       "#FFFFFF"
     end
   end
+
+  def gen_link(arg)
+    link_to arg[0], params.merge(arg[1]).permit(:sort, :direction, :controller, :action)
+  end
 end

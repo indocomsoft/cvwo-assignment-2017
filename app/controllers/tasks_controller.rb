@@ -96,7 +96,7 @@ class TasksController < ApplicationController
         else
           "asc"
         end
-      view_context.link_to title.html_safe, sort: column, direction: direction
+      [title.html_safe, sort: column, direction: direction]
     end
 
     helper_method :sortable

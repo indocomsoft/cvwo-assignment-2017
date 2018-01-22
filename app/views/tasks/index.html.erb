@@ -14,10 +14,10 @@
 <table class="table table-sm table-hover table-bordered table-striped">
   <thead class="thead-dark">
     <tr>
-      <th scope="col"><%= sortable "priority", "#" %></th>
-      <th scope="col"><%= sortable "name", "Tasks" %></th>
-      <th scope="col"><%= sortable "due_date" %></th>
-      <th scope="col"><%= sortable "done" %></th>
+      <th scope="col"><%= gen_link sortable("priority", "#") %></th>
+      <th scope="col"><%= gen_link sortable("name", "Tasks") %></th>
+      <th scope="col"><%= gen_link sortable("due_date") %></th>
+      <th scope="col"><%= gen_link sortable("done") %></th>
       <th scope="col"></th>
     </tr>
   </thead>

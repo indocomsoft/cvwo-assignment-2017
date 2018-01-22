@@ -23,4 +23,11 @@ describe ApplicationHelper do
       expect(helper.choose_fgcolour("#BADA55")).to eq("#FFFFFF")
     end
   end
+  describe "#gen_link" do
+    it "generates link" do
+      allow(helper).to receive(:params).and_return(ActionController::Parameters.new(controller: "tasks", action: "index"))
+      arg = ["a", sort: "done", direction: "asc"]
+      expect(helper.gen_link(arg)).to eq(link_to arg[0], arg[1].merge(controller: "tasks", action: "index"))
+    end
+  end
 end

@@ -23,4 +23,23 @@ RSpec.describe Task, type: :model do
         with_message("must be between 1 and 10 inclusive.").
         is_less_than(11).
         is_greater_than(0) }
+  context "search" do
+    before(:each) do
+      @task1 = Task.create(name: "qwerty", priority: 1)
+      @task2 = Task.create(name: "asdfghjkl", priority: 2)
+      @task3 = Task.create(name: "asdf", priority: 3)
+    end
+    it "finds one result" do
+      result = Task.search("sdf")
+      expect(result).to eq([@task2, @task3])
+    end
+    it "finds two results" do
+      result = Task.search("rty")
+      expect(result).to eq([@task1])
+    end
+    it "finds result case insensitively" do
+      result = Task.search("SdF")
+      expect(result).to eq([@task2, @task3])
+    end
+  end
 end

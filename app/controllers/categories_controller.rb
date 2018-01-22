@@ -50,10 +50,6 @@ class CategoriesController < ApplicationController
     redirect_to categories_path if category.destroy
   end
 
-  def search
-
-  end
-
   private
 
     def category_params
