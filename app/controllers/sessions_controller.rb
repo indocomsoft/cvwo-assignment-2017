@@ -2,9 +2,14 @@ class SessionsController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
 
   def new
+    redirect_to tasks_path if logged_in?
   end
 
   def create
+    if logged_in?
+      redirect_to tasks_path
+      return
+    end
     user = User.find_by(email: params[:session][:email].downcase)
     if user&.authenticate(params[:session][:password])
       log_in user

@@ -8,10 +8,18 @@ class UsersController < ApplicationController
   end
 
   def new
+    if logged_in?
+      redirect_to tasks_path
+      return
+    end
     @user = User.new
   end
 
   def create
+    if logged_in?
+      redirect_to tasks_path
+      return
+    end
     @user = User.new user_params
     if @user.save
       log_in @user
