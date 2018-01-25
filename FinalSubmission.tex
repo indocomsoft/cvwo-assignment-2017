@@ -1,0 +1,89 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[cm]{fullpage}
+\usepackage{hyperref}
+
+\title{CVWO Assignment Final Submission}
+\author{Julius Putra Tanu Setiaji}
+
+\begin{document}
+	\maketitle
+	\section{Accomplishments}
+		Throughout Semester 1, I have been learning Ruby on Rails in my Co-Curricular Activity (CCA). As such, I already have some basics, so I decided to set further goals, more than specified in the task requirement. I was quite interested in doing TDD (Test-Driven Development) which implies achieving 100\% code coverage, as well as integrating my project with various online tools such as Continuous Integration (CI) and Code Review tools. I was also interested in doing a many-to-many model relationship as the project I did before was only one-to-one or one-to-many. Things I accomplished include:
+		\begin{enumerate}
+			\item Doing test-driven development and achieved 100\% code coverage unit testing through \texttt{rspec} and \texttt{shoulda} gems, monitored by Coverall and learnt how to write easily testable codes
+			\item Set up Continuous Integration (CircleCI) and Code Review (CodeClimate), and deployed to Heroku on a custom domain at \url{http://cvwo.indocomsoft.com}
+			\item Linted my ruby code using \texttt{rubocop} gem
+			\item Using Bootstrap for front-end, assisted with jQuery (+plugins such as \texttt{bootstrap-datepicker} and \texttt{colourpicker})
+			\item Creating an in-house authentication system based on Rail's built-in \texttt{has\_secure\_password} and \texttt{bcrypt}
+		\end{enumerate}
+	\section{Possible Improvements}
+		I tried my best to implement my execution plan from the mid-assignment submission, but unfortunately due to circumstances, my hands are tied and I did not have enough time to implement all that I wanted. These are:
+		\begin{enumerate}
+			\item SPA (Single Page Application) -- to be honest I am not even sure Ruby on Rails is even fit for this task. It is doable, but would require a lot of effort.
+			\item Complete RESTful API so as to completely separate front-end from back-end
+			\item Integration with Mailgun (or any other email provider) to provide email notifications.
+			\item A way to self-deploy RoR on a DigitalOcean instance so that I can utilise LetsEncrypt certificates to provide https on custom domain
+			\item Porting views to HAML so that it could be easily linted.
+			\item Doing integrated testing as well as view testing
+			\item Use of \texttt{devise} gem for authentication system (the documentation did recommend against beginners using \texttt{devise}, hence I created my own authentication system).
+		\end{enumerate}
+	\section{User Manual}
+		The user interface is designed to be as intuitive as possible, but there might be some features that are not very obvious, do look out for those!
+		
+		\subsection{Sign Up}
+		Fill in your email, name, and password. If everything is alright you should be redirected to the Tasks view. You are automatically signed in.
+		
+		\subsection{Login/Logout}
+		For logging in, just fill in your email and password used during sign up. If you give the correct combination of email and password, you will be logged in and redirected to the Tasks view.
+		
+		When you are logged in, you can access actions related to your user account through the dropdown menu located on the top right hand of the page. You can access your Profile or Logout from there.
+		
+		\subsection{Profile}
+		The page will show the email address and name currently in our record.
+		
+		You are not allowed to change your email address, but you can update your name by clicking on the "Update details" button. It will show a form where you can edit your name. Change to the desired name and click Update.
+		
+		You can change your password as well by clicking on the "Change password" button. On the form shown, type in your current password, then your new password, and your new password one more time for confirmation. Click "Update" to change it.
+		
+		\subsection{Tasks}
+		\subsubsection{Tasks List}
+		This is the main menu of the application. You can add new tasks by clicking on the blue plus icon on the toolbar. You can go to the Categories view by clicking the grey "List Categories" button next to the "Add Task" button. You can also search for task names by typing your search query on the textbox and pressing the search button.
+		
+		You can click on each of the table headings to sort by that column. Click the column one more time to change the order of sorting.
+		
+		You can check or uncheck the done column. You will get a notification whether the action succeeded -- these alerts will be dismissed automatically in 3 seconds. More actions are hidden in the grey overflow button -- these are "Edit Task" and "Delete Task".
+		
+		Lastly, you can quickly edit each category by clicking on it on the tasks list. Its effect is similar to going to the Categories List, and clicking on the "Edit Category" button on that particular category.
+		
+		\subsubsection{New Task and Edit Task}
+		The interface used for editing a task is exactly the same as that for creating a new task. There are two compulsory columns: Name and Priority (from 1 to 10 inclusive). Clicking on the "Due Date" textbox will bring up a date picker -- simply choose a date from there. You can also optionally specify a more detailed description of the task. The description can be more than one line.
+		
+		You can also optionally associate a task with categories. To do this, type in the name of the category you want in the categories textbox, then press enter. This means category name can contain space -- the textbox will continue to take your input until you typed enter. You can associate one task to more than one category by keep on adding new categories on the textbox. The textbox will give you suggestions about existing categories. To remove a category, just click on the X button.
+		
+		Finally, when you are satisfied, click "Save"
+		
+		\subsubsection{Delete Task}
+		
+		There will be a confirmation dialog shown to ask for confirmation if you are deleting a task.
+		
+		\subsection{Categories}
+		
+		\subsubsection{Categories List}
+		The categories list view is actually very similar to the tasks list view. It will show your tasks grouped by categories. You can add new categories by clicking on the blue plus icon on the toolbar. However, this is not really necessary as associating a task with a non-existent category will automatically create it.
+		
+		You can go to the Categories view by clicking the turquoise "List Tasks" button next to the "Add Category" button. You can also search for category names by typing your search query on the textbox and pressing the search button.
+		
+		More actions are hidden in the grey overflow button -- these are "Edit Category" and "Delete Category".
+		
+		\subsubsection{New Category and Edit Category}
+		The interface used for creating a new category and editing an existing category is exactly the same. You need to enter a name for the category. You can optionally specify to use custom colour for your category by checking the "Use custom colour?" checkbox. If it is checked a colour picker will show up -- pick the desired colour.
+		
+		You can also associate the category you are editing to tasks. However, you can only associate the category to already existing tasks. Fret not, the textbox will give you suggestions about existing tasks. To remove a task, just click on the X button.
+		
+		Finally, when you are satisfied, click "Save"
+		
+		\subsubsection{Delete Category}
+		There will be a confirmation dialog shown to ask for confirmation if you are deleting a category.
+		
+\end{document}
