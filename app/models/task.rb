@@ -12,13 +12,18 @@
 #  done        :boolean          default(FALSE), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  user_id     :integer
+#
+# Indexes
+#
+#  index_tasks_on_user_id  (user_id)
 #
 
 class Task < ApplicationRecord
   has_many :taskcategories
   has_many :categories, through: :taskcategories
   belongs_to :user
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true
   validates :priority, numericality: { only_integer: true, greater_than: 0, less_than: 11, message: "must be between 1 and 10 inclusive." }
 
   def assign_categories(input_categories, user)
