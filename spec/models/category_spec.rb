@@ -20,6 +20,7 @@ require "rails_helper"
 RSpec.describe Category, type: :model do
   it { should have_many(:tasks).through(:taskcategories) }
   it { should validate_uniqueness_of(:name).ignoring_case_sensitivity.with_message(" ") }
+  it { should validate_presence_of(:name) }
   context "search" do
     before(:each) do
       @user = User.create(email: "test@example.com", password: "123456")

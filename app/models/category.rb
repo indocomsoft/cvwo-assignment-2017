@@ -19,7 +19,7 @@ class Category < ApplicationRecord
   has_many :taskcategories
   has_many :tasks, through: :taskcategories
   belongs_to :user
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true
 
   def assign_tasks(input_tasks, user)
     existing = tasks.all.map { |t| t.name }
