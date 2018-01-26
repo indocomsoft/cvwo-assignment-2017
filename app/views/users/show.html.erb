@@ -1,4 +1,4 @@
-<%= render "header", title: "Profile" %>
+<%= render "header", title: "Profile", show: true %>
 <div class="form-group">
   <%= label_tag :email %>
   <%= text_field_tag :email, @user.email, class: 'form-control', disabled: "disabled" %>

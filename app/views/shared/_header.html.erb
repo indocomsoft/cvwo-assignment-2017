@@ -9,7 +9,7 @@
   <% if logged_in? %>
     <span class="dropdown user">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="userMenuButton" data-toggle="dropdown">
-        <% if current_user.name.nil? || current_user.name.empty? %>
+        <% if current_user.name.blank? %>
           <%= current_user.email %>
         <% else %>
           <%= current_user.name %>
