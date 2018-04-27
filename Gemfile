@@ -7,7 +7,9 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.0'
+# for railties app_generator_test
+gem "bootsnap", ">= 1.1.0", require: false
 # Use Postgresql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -74,4 +76,4 @@ gem 'coveralls', require: false
 
 gem 'bcrypt'
 
-ruby "2.4.1"
+ruby "2.5.0"
